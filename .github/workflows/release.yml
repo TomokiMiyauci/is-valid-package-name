@@ -174,8 +174,8 @@ jobs:
       - name: debug
         run: ls nest_land
 
-      # - name: Release
-      #   run: yarn semantic-release
-      #   env:
-      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      #     GH_TOKEN: ${{ secrets.GH_PUBLIC }}
+      - name: Release
+        run: yarn semantic-release
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PUBLIC }}
