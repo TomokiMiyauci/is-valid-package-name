@@ -13,10 +13,7 @@ import {
   INVALID_SPECIAL_LETTER,
   INVALID_TRIMABLE,
 } from "../shared/message.ts";
-import {
-  INVALID_LESS_THEN_2,
-  INVALID_RESERVED_NAME,
-} from "./constants/message.ts";
+import { INVALID_LESS_THEN_2, INVALID_RESERVED_NAME } from "./_constants.ts";
 const lengthOf = (val: number): string => new Array(val).fill("a").join("");
 
 Deno.test("validateCheckAll", () => {

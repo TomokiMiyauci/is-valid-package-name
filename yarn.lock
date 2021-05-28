@@ -1025,9 +1025,9 @@
   integrity sha512-ikDzSgs2SbBtKVXCNfU6GzVACpUuojZS8Vu/VhM1EwtWvtfGJsrRETLbV231ODMvWtfKJThzrsk2Hp88fv9+gA==
 
 "@miyauci/is-valid@^1.0.0-beta.2":
-  version "1.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/@miyauci/is-valid/-/is-valid-1.0.0-beta.2.tgz#d4ffd41127d00e050e99466c771221d7b8cb5d94"
-  integrity sha512-bRJh/qcRnqi2Pxo3pIlIOUedqpUxVayz+4ISwRaMgsMpwJTv9qCRuFU5pVEQbDxZ4CA5fe2lU3QmEGP9VfjuHQ==
+  version "1.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/@miyauci/is-valid/-/is-valid-1.0.0-beta.3.tgz#e49e710004406588985ba0479bfd898b63bfbd3f"
+  integrity sha512-XhI7xE8OUFJDH6B2P3y+tjCKNcC0EdjXHjKN8jnBDAiMWOfXdPWLMwDLe6Amo75xeDTUoRIT3eDpdXJdeiB2GA==
 
 "@nodelib/fs.scandir@2.1.4":
   version "2.1.4"
@@ -5016,9 +5016,9 @@ rollup-plugin-ts@^1.3.12:
     tslib "^2.2.0"
 
 rollup@^2.50.2:
-  version "2.50.2"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.50.2.tgz#640c500c68c698f62efb01857e0ff06fcd18181f"
-  integrity sha512-Ra5JkxSiZPZZFnvE68KWtlrLnZGg5LNaV1n1esq4ch69P7ReeoRVlrTuL/k+L/GJfcowA5An0BEhEq2Hfzwl6w==
+  version "2.50.3"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.50.3.tgz#71021dedf2e3423bee28e795860783feea2be63e"
+  integrity sha512-58KiHnaCzZn6F5yRMjHe7WTZuFj6r4iJVJz5UwvKD6f/xfTy2IdtbR2AVHN6cyfK1tBy//hJ66ebXy6Y1h7HlQ==
   optionalDependencies:
     fsevents "~2.3.1"
 

@@ -2,12 +2,13 @@
 import {
   failOnTrue,
   ifElse,
+  ifElseFn,
   isLength0,
   isString,
   isUndefined,
   isValid as _isValid,
+  isValidFalse,
   ltLength,
-  N,
   NN,
   not,
 } from "../deps.ts";
@@ -23,8 +24,8 @@ import { includeFactory } from "../shared/composite.ts";
 import {
   INVALID_LESS_THEN_2,
   INVALID_RESERVED_NAME,
-} from "./constants/message.ts";
-import { RESERVED } from "./constants/name_list.ts";
+  RESERVED,
+} from "./_constants.ts";
 
 const lt2 = ltLength(2);
 const isReservedName = includeFactory(RESERVED);
@@ -71,23 +72,19 @@ const validate = <T extends boolean>(
     () => validateFailFast(val),
   ) as T extends true ? [boolean, string[]] : [boolean, string];
 
-const validators = [
-  isLength0,
-  isTrimable,
-  lt2,
-  gt40,
-  isReservedName,
-  not(isRegularLetter),
-];
-
-const isValid = (
-  val: unknown,
-): boolean =>
-  ifElse(
-    isString(val),
-    () => validators.every((fn) => N(fn(val as string))),
-    false,
-  );
+const isValid = ifElseFn(
+  isString,
+  (val: unknown) =>
+    isValidFalse(
+      isLength0,
+      isTrimable,
+      lt2,
+      gt40,
+      isReservedName,
+      not(isRegularLetter),
+    )(val as string),
+  false,
+);
 
 export {
   isRegularLetter,

@@ -8,6 +8,7 @@ export {
   gt,
   has,
   ifElse,
+  ifElseFn,
   isArray,
   isBoolean,
   isFunction,
@@ -33,7 +34,8 @@ export {
   failOnTrue,
   gtLength,
   isValid,
+  isValidFalse,
   ltLength,
-} from "https://deno.land/x/is_valid@v1.0.0-beta.2/mod.ts";
+} from "https://deno.land/x/is_valid@v1.0.0-beta.3/mod.ts";
 
 export type { AnyFn } from "https://deno.land/x/fonction@v1.8.0-beta.5/mod.ts";
