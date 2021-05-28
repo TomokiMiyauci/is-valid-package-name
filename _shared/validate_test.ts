@@ -1,3 +1,4 @@
+// Copyright 2021-present the is-valid-package-name authors. All rights reserved. MIT license.
 import { isRegularLetter, isTrimable } from "./validate.ts";
 import { assertEquals } from "../dev_deps.ts";
 

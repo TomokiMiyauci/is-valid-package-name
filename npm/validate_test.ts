@@ -22,7 +22,7 @@ import {
   INVALID_LENGTH_0,
   INVALID_NOT_STRING,
   INVALID_TRIMABLE,
-} from "../shared/message.ts";
+} from "../_shared/constants.ts";
 
 const emptyString = "";
 

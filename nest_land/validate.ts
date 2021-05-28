@@ -18,9 +18,9 @@ import {
   INVALID_NOT_STRING,
   INVALID_SPECIAL_LETTER,
   INVALID_TRIMABLE,
-} from "../shared/message.ts";
-import { gt40, isRegularLetter, isTrimable } from "../shared/validate.ts";
-import { includeFactory } from "../shared/composite.ts";
+} from "../_shared/constants.ts";
+import { gt40, isRegularLetter, isTrimable } from "../_shared/validate.ts";
+import { includeFactory } from "../_shared/composite.ts";
 import {
   INVALID_LESS_THEN_2,
   INVALID_RESERVED_NAME,

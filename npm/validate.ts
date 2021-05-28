@@ -12,7 +12,7 @@ import {
   not,
   startsWith,
 } from "../deps.ts";
-import { includeFactory } from "../shared/composite.ts";
+import { includeFactory } from "../_shared/composite.ts";
 import { normalize } from "./_utils.ts";
 import { BLACKLIST, SPECIAL_CHARACTERS } from "./_constants.ts";
 
@@ -20,7 +20,7 @@ import {
   INVALID_LENGTH_0,
   INVALID_NOT_STRING,
   INVALID_TRIMABLE,
-} from "../shared/message.ts";
+} from "../_shared/constants.ts";
 
 import {
   INVALID_BLACKLIST,
@@ -29,7 +29,7 @@ import {
   INVALID_START_WITH_,
   INVALID_START_WITH_DOT,
 } from "./_constants.ts";
-import { isTrimable } from "../shared/validate.ts";
+import { isTrimable } from "../_shared/validate.ts";
 
 const gt214 = gtLength(214);
 const isLowerCase = (val: string): boolean => val.toLowerCase() === val;
