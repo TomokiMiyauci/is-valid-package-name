@@ -66,8 +66,8 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: nest.land
-          path: nest_land/dist
+          name: dist
+          path: dist
 
   # lint:
   #   needs: [setup]
@@ -168,14 +168,11 @@ jobs:
 
       - uses: actions/download-artifact@v2
         with:
-          name: nest.land
-          path: nest_land/dist
-
-      - name: debug
-        run: ls nest_land
+          name: dist
+          path: dist
 
       - name: Release
-        run: yarn release
+        run: yarn semantic-release
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_PUBLIC }}
