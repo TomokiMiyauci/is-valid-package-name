@@ -1,0 +1,71 @@
+{
+  "name": "is-valid-package-name",
+  "description": "Validation for package name",
+  "private": true,
+  "workspaces": [
+    "npm/*",
+    "deno_land/*",
+    "nest_land/*"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "commit": "cz",
+    "prepare": "husky install",
+    "build": "rollup -c rollup.config.ts",
+    "release": "multi-semantic-release"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
+    "@rollup/plugin-replace": "^2.4.2",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
+    "@types/yargs": "^17.0.0",
+    "commitizen": "^4.2.4",
+    "commitlint-config-gitmoji": "^2.2.5",
+    "cz-emoji": "^1.3.1",
+    "esbuild": "^0.12.5",
+    "husky": "^6.0.0",
+    "multi-semantic-release": "^2.8.0",
+    "rollup": "^2.48.0",
+    "rollup-plugin-add-shebang": "^0.3.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-ts": "^1.3.12",
+    "semantic-release": "^17.4.3",
+    "semantic-release-gitmoji": "^1.3.4",
+    "typescript": "^4.3.2"
+  },
+  "keywords": [
+    "package",
+    "pkg",
+    "name",
+    "validate",
+    "validation",
+    "validator",
+    "rule",
+    "registry",
+    "npm",
+    "deno.land",
+    "nest.land"
+  ],
+  "author": {
+    "name": "TomokiMiyauci",
+    "email": "development.operation6.6.6@gmail.com",
+    "url": "https://miyauchi.dev/"
+  },
+  "homepage": "https://github.com/TomokiMiyauci/is-valid-package-name#readme",
+  "bugs": "https://github.com/TomokiMiyauci/is-valid-package-name/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TomokiMiyauci/is-valid-package-name.git"
+  },
+  "funding": {
+    "type": "patreon",
+    "url": "https://www.patreon.com/tomoki_miyauci"
+  },
+  "dependencies": {
+    "@miyauci/is-valid": "^1.0.0-beta.2",
+    "fonction": "^1.8.0-beta.5"
+  }
+}
