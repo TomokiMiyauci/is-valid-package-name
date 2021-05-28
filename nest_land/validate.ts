@@ -12,16 +12,14 @@ import {
   not,
 } from "../deps.ts";
 import {
-  gt40,
-  includeFactory,
   INVALID_GREATER_THEN_40,
   INVALID_LENGTH_0,
   INVALID_NOT_STRING,
   INVALID_SPECIAL_LETTER,
   INVALID_TRIMABLE,
-  isRegularLetter,
-  isTrimable,
-} from "../shared/mod.ts";
+} from "../shared/message.ts";
+import { gt40, isRegularLetter, isTrimable } from "../shared/validate.ts";
+import { includeFactory } from "../shared/composite.ts";
 import {
   INVALID_LESS_THEN_2,
   INVALID_RESERVED_NAME,
