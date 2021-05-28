@@ -1,7 +1,7 @@
 {
   "name": "is-valid-nest.land-package-name",
   "description": "Validation for package name",
-  "version": "0.0.0",
+  "version": "1.0.0-beta.1",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
