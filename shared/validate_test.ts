@@ -1,5 +1,5 @@
 import { isRegularLetter, isTrimable } from "./validate.ts";
-import { assertEquals } from "../../dev_deps.ts";
+import { assertEquals } from "../dev_deps.ts";
 
 Deno.test("isTrimable", () => {
   const table: [string, boolean][] = [
