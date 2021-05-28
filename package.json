@@ -72,5 +72,6 @@
   "dependencies": {
     "@miyauci/is-valid": "^1.0.0-beta.2",
     "fonction": "^1.8.0-beta.6"
-  }
+  },
+  "version": "1.0.0-beta.1"
 }
