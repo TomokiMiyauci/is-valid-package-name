@@ -1,14 +1,13 @@
 // Copyright 2021-present the is-valid-package-name authors. All rights reserved. MIT license.
 import {
-  AnyFn,
   failOnTrue,
   gtLength,
   ifElse,
-  isFunction,
+  ifElseFn,
   isLength0,
   isString,
   isUndefined,
-  N,
+  isValidFalse,
   NN,
   not,
   startsWith,
@@ -61,22 +60,16 @@ const table = [
   [isBlacklistName, INVALID_BLACKLIST],
 ] as const;
 
-const validators = [
-  isLength0,
-  isTrimable,
-  isStartWithDot,
-  isStartWith_,
-  not(isLowerCase),
-  hasSpecialCharacter,
-  isBlacklistName,
-];
-
-const isValid = (val: unknown): boolean =>
-  ifElse(
-    isString(val),
-    () => validators.every((fn) => N(fn(val as string))),
-    false,
-  );
+const isValid = ifElseFn(isString, (val: unknown) =>
+  isValidFalse(
+    isLength0,
+    isTrimable,
+    isStartWithDot,
+    isStartWith_,
+    not(isLowerCase),
+    hasSpecialCharacter,
+    isBlacklistName,
+  )(val as string), false);
 
 const validateAll = (val: unknown): [boolean, string[]] =>
   ifElse(isString(val), () => {

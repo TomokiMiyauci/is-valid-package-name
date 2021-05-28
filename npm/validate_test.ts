@@ -4,6 +4,7 @@ import {
   isBlacklistName,
   isEqualNormalizedName,
   isLowerCase,
+  isValid,
   validate,
   validateAll,
   validateFailFast,
@@ -154,6 +155,27 @@ Deno.test("validateFailFast", () => {
       validateFailFast(val),
       expected,
       `validateFailFast(${val}) -> ${expected}`,
+    );
+  });
+});
+
+Deno.test("isValid", () => {
+  const table: [unknown, boolean][] = [
+    [undefined, false],
+    ["", false],
+    [" hello", false],
+    ["A", false],
+    ["Abc", false],
+    ["~", false],
+    ["_hello", false],
+    [".hello", false],
+    ["fonction", true],
+  ];
+  table.forEach(([val, expected]) => {
+    assertEquals(
+      isValid(val),
+      expected,
+      `isValid(${val}) -> ${expected}`,
     );
   });
 });
