@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
-  "types": "dist/index.es.d.ts",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.cjs.js",
@@ -16,7 +16,9 @@
   "scripts": {
     "cz": "yarn --cwd .. cz ",
     "commit": "yarn cz",
-    "build": "rollup -c rollup.config.ts"
+    "bundle:esbuild": "esno build.ts",
+    "bundle:rollup": "rollup -c rollup.config.ts",
+    "build": "yarn bundle:esbuild && yarn bundle:rollup"
   },
   "files": [
     "dist"
@@ -56,6 +58,6 @@
   ],
   "dependencies": {
     "@miyauci/is-valid": "^1.0.0-beta.2",
-    "fonction": "^1.8.0-beta.5"
+    "fonction": "^1.8.0-beta.6"
   }
 }
