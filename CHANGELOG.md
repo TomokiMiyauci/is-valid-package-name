@@ -1,3 +1,8 @@
+# [v1.0.0-beta.4](https://github.com/TomokiMiyauci/is-valid-package-name/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2021-05-29)
+
+## ✨ New Features
+- [`6600ce6`](https://github.com/TomokiMiyauci/is-valid-package-name/commit/6600ce6)   Add validation for deno.land module name
+
 # [v1.0.0-beta.3](https://github.com/TomokiMiyauci/is-valid-package-name/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2021-05-28)
 
 ## ✨ New Features
