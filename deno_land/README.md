@@ -27,8 +27,8 @@ isValid('?hogehoge') // false
 `validate`:
 
 ```ts
-validate(undefined) // [false, 'NAME must be a string']
-validate(undefined, true) // [false, ['NAME must be a string']]
+validate(undefined) // [false, 'Name must be a string']
+validate(undefined, true) // [false, ['Name must be a string']]
 validate('ab') // [false, 'Name length must be greater equal than 3']
 validate('is_valid_package_name') // [true, '']
 ```
@@ -39,7 +39,7 @@ Below is a list of rules that valid npm package name should conform to.
 
 | rule | return value |
 | --|--|
-| the input type is `string` | `NAME must be a string` |
+| the input type is `string` | `Name must be a string` |
 | package name length must be greater than zero. | `Name length must be greater than zero` |
 | package name should not contain any leading or trailing spaces. | `Name cannot contain leading or trailing spaces` |
 | package name length should be greater equal than 3 | `Name length must be greater equal than 3`|
