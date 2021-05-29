@@ -1,3 +1,8 @@
+# [v1.0.0-beta.6](https://github.com/TomokiMiyauci/is-valid-package-name/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2021-05-29)
+
+## 🐛 Bug Fixes
+- [`36e41c7`](https://github.com/TomokiMiyauci/is-valid-package-name/commit/36e41c7)   Fix type definitions
+
 # [v1.0.0-beta.5](https://github.com/TomokiMiyauci/is-valid-package-name/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2021-05-29)
 
 ## 🐛 Bug Fixes
