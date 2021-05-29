@@ -1,3 +1,8 @@
+# [v1.0.0-beta.5](https://github.com/TomokiMiyauci/is-valid-package-name/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2021-05-29)
+
+## 🐛 Bug Fixes
+- [`1998418`](https://github.com/TomokiMiyauci/is-valid-package-name/commit/1998418)   Fix export file path
+
 # [v1.0.0-beta.4](https://github.com/TomokiMiyauci/is-valid-package-name/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2021-05-29)
 
 ## ✨ New Features
