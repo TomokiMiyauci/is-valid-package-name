@@ -1,5 +1,5 @@
 // Copyright 2021-present the is-valid-package-name authors. All rights reserved. MIT license.
-export { assertEquals } from "https://deno.land/std/testing/asserts.ts";
+export { assertEquals } from "https://deno.land/std@0.97.0/testing/asserts.ts";
 export {
   endsWith,
   isArray,

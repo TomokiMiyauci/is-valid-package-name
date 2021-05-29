@@ -4,3 +4,7 @@ export {
   validate as validateNestLand,
 } from "./nest_land/mod.ts";
 export { isValid as isValidNpm, validate as validateNpm } from "./npm/mod.ts";
+export {
+  isValid as isValidDenoLand,
+  validate as validateDenoLand,
+} from "./deno_land/mod.ts";
