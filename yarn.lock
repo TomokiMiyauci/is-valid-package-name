@@ -1025,9 +1025,11 @@
   integrity sha512-ikDzSgs2SbBtKVXCNfU6GzVACpUuojZS8Vu/VhM1EwtWvtfGJsrRETLbV231ODMvWtfKJThzrsk2Hp88fv9+gA==
 
 "@miyauci/is-valid@^1.0.0-beta.2":
-  version "1.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@miyauci/is-valid/-/is-valid-1.0.0-beta.3.tgz#e49e710004406588985ba0479bfd898b63bfbd3f"
-  integrity sha512-XhI7xE8OUFJDH6B2P3y+tjCKNcC0EdjXHjKN8jnBDAiMWOfXdPWLMwDLe6Amo75xeDTUoRIT3eDpdXJdeiB2GA==
+  version "1.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@miyauci/is-valid/-/is-valid-1.0.0-beta.4.tgz#d7ecc5d90e8a275dfe770957afc9ad37047a6f0a"
+  integrity sha512-sYH7dziDstHSiltJPknt4NmQw/N6GhnLJHr0TfkgQCknfoPkIenfigUKmZQ7yNOGfkPDu4lNTfFf3wZk/NfR1Q==
+  dependencies:
+    fonction "^1.8.0-beta.5"
 
 "@nodelib/fs.scandir@2.1.4":
   version "2.1.4"
@@ -2696,7 +2698,7 @@ findup-sync@^4.0.0:
     micromatch "^4.0.2"
     resolve-dir "^1.0.1"
 
-fonction@^1.8.0-beta.6:
+fonction@^1.8.0-beta.5, fonction@^1.8.0-beta.6:
   version "1.8.0-beta.6"
   resolved "https://registry.yarnpkg.com/fonction/-/fonction-1.8.0-beta.6.tgz#96726962f17a568bdfc25fd10760ecb876970e4a"
   integrity sha512-bO48VXFJSuGQcG1MsfMaHQDrRog6dYvE4s7cOOSu9SBMA+zOXqY45/wVcr1UU8a0Lp8pLDPIhj/Gjf5Umaz3EQ==
@@ -5016,9 +5018,9 @@ rollup-plugin-ts@^1.3.12:
     tslib "^2.2.0"
 
 rollup@^2.50.2:
-  version "2.50.3"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.50.3.tgz#71021dedf2e3423bee28e795860783feea2be63e"
-  integrity sha512-58KiHnaCzZn6F5yRMjHe7WTZuFj6r4iJVJz5UwvKD6f/xfTy2IdtbR2AVHN6cyfK1tBy//hJ66ebXy6Y1h7HlQ==
+  version "2.50.4"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.50.4.tgz#5a53e4294296dfee2a83b0ec0d0536984b98de71"
+  integrity sha512-mBQa9O6bdqur7a6R+TXcbdYgfO2arXlDG+rSrWfwAvsiumpJjD4OS23R9QuhItuz8ysWb8mZ91CFFDQUhJY+8Q==
   optionalDependencies:
     fsevents "~2.3.1"
 
