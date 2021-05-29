@@ -8,10 +8,11 @@
   "types": "dist/index.es.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.cjs.js",
-      "require": "./dist/index.umd.js"
+      "require": "./dist/index.cjs.js",
+      "import": "./dist/index.es.js"
     }
   },
+  "sideEffects": false,
   "scripts": {
     "commit": "cz",
     "prepare": "husky install",
@@ -64,5 +65,8 @@
   "dependencies": {
     "@miyauci/is-valid": "^1.0.0-beta.2",
     "fonction": "^1.8.0-beta.6"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
