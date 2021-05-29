@@ -78,7 +78,7 @@ isValid('is-valid-package-name') // true
 Type Definition:
 
 ```ts
-declare const validate: <T extends boolean>(val: unknown, checkAll?: T | undefined) => T extends true ? [
+declare const validate: <T extends boolean = false>(val: unknown, checkAll?: T | undefined) => T extends true ? [
     boolean,
     string[]
 ] : [

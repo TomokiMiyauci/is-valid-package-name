@@ -62,7 +62,7 @@ const validateCheckAll = (val: unknown): [boolean, string[]] =>
     [INVALID_NOT_STRING],
   ]);
 
-const validate = <T extends boolean>(
+const validate = <T extends boolean = false>(
   val: unknown,
   checkAll?: T,
 ): T extends true ? [boolean, string[]] : [boolean, string] =>
