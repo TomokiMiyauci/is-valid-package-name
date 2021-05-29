@@ -22,7 +22,7 @@ Validation for package name
 [![dependencies Status](https://status.david-dm.org/gh/TomokiMiyauci/is-valid-package-name.svg)](https://david-dm.org/TomokiMiyauci/is-valid-package-name)
 [![codecov](https://codecov.io/gh/TomokiMiyauci/is-valid-package-name/branch/main/graph/badge.svg?token=SPAi5Pv2wd)](https://codecov.io/gh/TomokiMiyauci/is-valid-package-name)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/f43b1c317e11445399d85ce6efc06504)](https://www.codacy.com/gh/TomokiMiyauci/is-valid-package-name/dashboard?utm_source=github.com&utm_medium=referral&utm_content=TomokiMiyauci/is-valid-package-name&utm_campaign=Badge_Grade)
-![npm type definitions](https://img.shields.io/npm/types/arithmetic4)
+![npm type definitions](https://img.shields.io/npm/types/is-valid-package-name)
 ![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)
 ![Gitmoji](https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg?style=flat)
 ![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)
@@ -44,13 +44,12 @@ Validation for package name
 
 - :zap: Multi runtime support (`Deno`, `Node.js`)
 - :books: Pure TypeScript and provides type definition
-- :earth_americas: Universal module, providing `ES modules` and `UMD`
 - :package: Optimized, super slim size
 - :page_facing_up: TSDoc-style comments
 
 ## :handshake: Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues](https://github.com/TomokiMiyauci/equal/issues).
+Contributions, issues and feature requests are welcome!<br />Feel free to check [issues](https://github.com/TomokiMiyauci/is-valid-pacakge-name/issues).
 
 ## :seedling: Show your support
 
