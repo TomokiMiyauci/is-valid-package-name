@@ -1,3 +1,8 @@
+# [v1.0.0-beta.3](https://github.com/TomokiMiyauci/is-valid-package-name/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2021-05-28)
+
+## ✨ New Features
+- [`c9aa820`](https://github.com/TomokiMiyauci/is-valid-package-name/commit/c9aa820)   Add validator for npm module name
+
 # [v1.0.0-beta.2](https://github.com/TomokiMiyauci/is-valid-package-name/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2021-05-28)
 
 ## 🐛 Bug Fixes
