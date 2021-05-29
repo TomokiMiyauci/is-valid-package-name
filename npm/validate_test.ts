@@ -144,6 +144,7 @@ Deno.test("validateFailFast", () => {
 
     [" hello", [false, INVALID_TRIMABLE]],
     ["A", [false, INVALID_LETTER_CASE]],
+    [" Abc", [false, INVALID_TRIMABLE]],
     ["Abc", [false, INVALID_LETTER_CASE]],
     ["~", [false, INVALID_SPACIAL_CHAR]],
     ["_hello", [false, INVALID_START_WITH_]],
@@ -188,6 +189,7 @@ Deno.test("validateAll", () => {
     ]]],
 
     [" hello", [false, [INVALID_TRIMABLE]]],
+    [" Abc", [false, [INVALID_TRIMABLE, INVALID_LETTER_CASE]]],
     ["A", [false, [INVALID_LETTER_CASE]]],
     ["Abc", [false, [INVALID_LETTER_CASE]]],
     ["~", [false, [INVALID_SPACIAL_CHAR]]],
