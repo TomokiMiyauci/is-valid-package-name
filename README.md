@@ -11,9 +11,9 @@ Validation for package name
 
 [![test](https://github.com/TomokiMiyauci/is-valid-package-name/actions/workflows/test.yml/badge.svg)](https://github.com/TomokiMiyauci/is-valid-package-name/actions/workflows/test.yml)
 [![GitHub release](https://img.shields.io/github/release/TomokiMiyauci/is-valid-package-name.svg)](https://github.com/TomokiMiyauci/is-valid-package-name/releases)
-[![deno land](http://img.shields.io/badge/available%20on-deno.land/x-lightgrey.svg?logo=deno&labelColor=black)](https://deno.land/x/is-valid-package-name)
-[![nest badge](https://nest.land/badge.svg)](https://nest.land/package/is-valid-package-name)
-[![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/is-valid-package-name/mod.ts)
+[![deno land](http://img.shields.io/badge/available%20on-deno.land/x-lightgrey.svg?logo=deno&labelColor=black)](https://deno.land/x/is_valid_package_name)
+[![nest badge](https://nest.land/badge.svg)](https://nest.land/package/is_valid_package_name)
+[![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/is_valid_package_name/mod.ts)
 [![deno version](https://img.shields.io/badge/deno-^1.6.0-lightgrey?logo=deno)](https://github.com/denoland/deno)
 ![node support version](https://img.shields.io/badge/node-%5E14.16.0-yellow)
 ![bundle size](https://img.shields.io/bundlephobia/min/is-valid-package-name)
