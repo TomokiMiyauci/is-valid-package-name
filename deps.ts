@@ -29,13 +29,12 @@ export {
   trim,
   tryCatch,
   uniq,
-} from "https://deno.land/x/fonction@v1.8.0-beta.5/mod.ts";
+} from "https://deno.land/x/fonction@v1.8.0-beta.7/mod.ts";
 export {
+  everyFalse,
   failOnTrue,
   gtLength,
-  isValid,
-  isValidFalse,
   ltLength,
-} from "https://deno.land/x/is_valid@v1.0.0-beta.3/mod.ts";
+} from "https://deno.land/x/is_valid@v1.0.0-beta.9/mod.ts";
 
-export type { AnyFn } from "https://deno.land/x/fonction@v1.8.0-beta.5/mod.ts";
+export type { AnyFn } from "https://deno.land/x/fonction@v1.8.0-beta.7/mod.ts";

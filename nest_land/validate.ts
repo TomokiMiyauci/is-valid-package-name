@@ -1,13 +1,12 @@
 // Copyright 2021-present the is-valid-package-name authors. All rights reserved. MIT license.
 import {
+  everyFalse,
   failOnTrue,
   ifElse,
   ifElseFn,
   isLength0,
   isString,
   isUndefined,
-  isValid as _isValid,
-  isValidFalse,
   ltLength,
   NN,
   not,
@@ -75,7 +74,7 @@ const validate = <T extends boolean = false>(
 const isValid = ifElseFn(
   isString,
   (val: unknown) =>
-    isValidFalse(
+    everyFalse(
       isLength0,
       isTrimable,
       lt2,

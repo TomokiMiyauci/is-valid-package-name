@@ -1,12 +1,12 @@
 // Copyright 2021-present the is-valid-package-name authors. All rights reserved. MIT license.
 import {
+  everyFalse,
   failOnTrue,
   ifElse,
   ifElseFn,
   isLength0,
   isString,
   isUndefined,
-  isValidFalse,
   ltLength,
   NN,
   not,
@@ -34,7 +34,7 @@ const table = [
 const isValid = ifElseFn(
   isString,
   (val: unknown) =>
-    isValidFalse(
+    everyFalse(
       isLength0,
       isTrimable,
       lt3,
