@@ -9,12 +9,6 @@ export {
   has,
   ifElse,
   ifElseFn,
-  isArray,
-  isBoolean,
-  isFunction,
-  isLength0,
-  isString,
-  isUndefined,
   keys,
   length,
   lt,
@@ -29,12 +23,19 @@ export {
   trim,
   tryCatch,
   uniq,
-} from "https://deno.land/x/fonction@v1.8.0-beta.7/mod.ts";
+} from "https://deno.land/x/fonction@v1.8.1/mod.ts";
 export {
+  cast,
   everyFalse,
   failOnTrue,
   gtLength,
+  isArray,
+  isBoolean,
+  isFunction,
+  isLength0,
+  isString,
+  isUndefined,
   ltLength,
 } from "https://deno.land/x/is_valid@v1.0.0-beta.9/mod.ts";
 
-export type { AnyFn } from "https://deno.land/x/fonction@v1.8.0-beta.7/mod.ts";
+export type { AnyFn } from "https://deno.land/x/fonction@v1.8.1/mod.ts";

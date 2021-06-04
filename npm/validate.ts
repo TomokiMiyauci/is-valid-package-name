@@ -14,7 +14,6 @@ import {
 } from "../deps.ts";
 import { includeFactory } from "../_shared/composite.ts";
 import { normalize } from "./_utils.ts";
-import { BLACKLIST, SPECIAL_CHARACTERS } from "./_constants.ts";
 
 import {
   INVALID_LENGTH_0,
@@ -23,21 +22,28 @@ import {
 } from "../_shared/constants.ts";
 
 import {
+  BLACKLIST,
+  CORE_MODULES,
   INVALID_BLACKLIST,
+  INVALID_CORE_MODULES,
+  INVALID_GREATER_THEN_214,
   INVALID_LETTER_CASE,
   INVALID_SPACIAL_CHAR,
   INVALID_START_WITH_,
   INVALID_START_WITH_DOT,
+  RegularLetter,
 } from "./_constants.ts";
 import { isTrimable } from "../_shared/validate.ts";
+
+const test = (regExp: RegExp) => (val: string): boolean => regExp.test(val);
 
 const gt214 = gtLength(214);
 const isLowerCase = (val: string): boolean => val.toLowerCase() === val;
 const isStartWithDot = startsWith(".");
 const isStartWith_ = startsWith("_");
-const hasSpecialCharacter = (val: string): boolean =>
-  SPECIAL_CHARACTERS.test(val);
+const hasSpecialCharacter = test(RegularLetter);
 const isBlacklistName = includeFactory(BLACKLIST);
+const isCoreModuleName = includeFactory(CORE_MODULES);
 const isEqualNormalizedName = (name: string) =>
   (packageName: string): boolean => normalize(packageName) === name;
 
@@ -47,6 +53,7 @@ const table = [
     INVALID_LENGTH_0,
   ],
   [isTrimable, INVALID_TRIMABLE],
+  [gt214, INVALID_GREATER_THEN_214],
   [
     isStartWithDot,
     INVALID_START_WITH_DOT,
@@ -56,19 +63,22 @@ const table = [
     INVALID_START_WITH_,
   ],
   [not(isLowerCase), INVALID_LETTER_CASE],
-  [hasSpecialCharacter, INVALID_SPACIAL_CHAR],
+  [not(hasSpecialCharacter), INVALID_SPACIAL_CHAR],
   [isBlacklistName, INVALID_BLACKLIST],
+  [isCoreModuleName, INVALID_CORE_MODULES],
 ] as const;
 
 const isValid = ifElseFn(isString, (val: unknown) =>
   everyFalse(
     isLength0,
     isTrimable,
+    gt214,
     isStartWithDot,
     isStartWith_,
     not(isLowerCase),
-    hasSpecialCharacter,
+    not(hasSpecialCharacter),
     isBlacklistName,
+    isCoreModuleName,
   )(val as string), false);
 
 const validateAll = (val: unknown): [boolean, string[]] =>

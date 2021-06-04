@@ -13,6 +13,8 @@ import { normalize } from "./_utils.ts";
 import { assertEquals } from "../dev_deps.ts";
 import {
   INVALID_BLACKLIST,
+  INVALID_CORE_MODULES,
+  INVALID_GREATER_THEN_214,
   INVALID_LETTER_CASE,
   INVALID_SPACIAL_CHAR,
   INVALID_START_WITH_,
@@ -51,43 +53,53 @@ Deno.test("isLowerCase", () => {
 Deno.test("hasSpecialCharacter", () => {
   const table: [string, boolean][] = [
     [emptyString, false],
-    ["a", false],
-    [
-      "hoge",
-      false,
-    ],
-    [
-      "~",
-      true,
-    ],
-    [
-      "'",
-      true,
-    ],
-    [
-      "!",
-      true,
-    ],
-    [
-      "(",
-      true,
-    ],
-    [
-      ")",
-      true,
-    ],
-    [
-      "*",
-      true,
-    ],
-    [
-      "~'!()*",
-      true,
-    ],
-    [
-      "~'!()*xxxxxxx",
-      true,
-    ],
+    [" ", false],
+    ["a b", false],
+    [" a b ", false],
+    ["hello", true],
+    ["\ud800", false],
+    ["\uD800", false],
+    ["\uDFFF", false],
+    ["A", false],
+    ["abc123", true],
+    ["fonction", true],
+    ["-", true],
+    ["_", true],
+    [".", true],
+    ["!", false],
+    ["|", false],
+    ["~", false],
+    ["*", false],
+    ["'", false],
+    ["(", false],
+    [")", false],
+    ["#", false],
+    ['"', false],
+    [";", false],
+    [",", false],
+    ["/", false],
+    ["?", false],
+    [":", false],
+    ["@", false],
+    ["&", false],
+    ["=", false],
+    ["+", false],
+    ["$", false],
+    ["[", false],
+    ["<", false],
+    [",", false],
+    [">", false],
+    ["}", false],
+    ["{", false],
+    ["]", false],
+    ["]", false],
+    ["^", false],
+    ["%", false],
+    ["`", false],
+    ["\\", false],
+    ["\uD800\uDFFF", false],
+    ["\uD800\uDFFF", false],
+    ["!|~*'()#;,/?:@&=+$[<,>}{]]^%`", false],
   ];
 
   table.forEach(([val, expected]) => {
@@ -141,7 +153,8 @@ Deno.test("validateFailFast", () => {
   const table: [unknown, [boolean, string]][] = [
     [undefined, [false, INVALID_NOT_STRING]],
     ["", [false, INVALID_LENGTH_0]],
-
+    [new Array(214).fill("a").join(""), [true, ""]],
+    [new Array(215).fill("a").join(""), [false, INVALID_GREATER_THEN_214]],
     [" hello", [false, INVALID_TRIMABLE]],
     ["A", [false, INVALID_LETTER_CASE]],
     [" Abc", [false, INVALID_TRIMABLE]],
@@ -150,6 +163,7 @@ Deno.test("validateFailFast", () => {
     ["_hello", [false, INVALID_START_WITH_]],
     [".hello", [false, INVALID_START_WITH_DOT]],
     ["fonction", [true, ""]],
+    ["v8", [false, INVALID_CORE_MODULES]],
   ];
   table.forEach(([val, expected]) => {
     assertEquals(
@@ -164,6 +178,8 @@ Deno.test("isValid", () => {
   const table: [unknown, boolean][] = [
     [undefined, false],
     ["", false],
+    [new Array(214).fill("a").join(""), true],
+    [new Array(215).fill("a").join(""), false],
     [" hello", false],
     ["A", false],
     ["Abc", false],
@@ -171,6 +187,7 @@ Deno.test("isValid", () => {
     ["_hello", false],
     [".hello", false],
     ["fonction", true],
+    ["assert", false],
   ];
   table.forEach(([val, expected]) => {
     assertEquals(
@@ -186,22 +203,29 @@ Deno.test("validateAll", () => {
     [undefined, [false, [INVALID_NOT_STRING]]],
     ["", [false, [
       INVALID_LENGTH_0,
+      INVALID_SPACIAL_CHAR,
     ]]],
-
-    [" hello", [false, [INVALID_TRIMABLE]]],
-    [" Abc", [false, [INVALID_TRIMABLE, INVALID_LETTER_CASE]]],
-    ["A", [false, [INVALID_LETTER_CASE]]],
-    ["Abc", [false, [INVALID_LETTER_CASE]]],
+    [new Array(214).fill("a").join(""), [true, []]],
+    [new Array(215).fill("a").join(""), [false, [INVALID_GREATER_THEN_214]]],
+    [" hello", [false, [INVALID_TRIMABLE, INVALID_SPACIAL_CHAR]]],
+    [" Abc", [false, [
+      INVALID_TRIMABLE,
+      INVALID_LETTER_CASE,
+      INVALID_SPACIAL_CHAR,
+    ]]],
+    ["A", [false, [INVALID_LETTER_CASE, INVALID_SPACIAL_CHAR]]],
+    ["Abc", [false, [INVALID_LETTER_CASE, INVALID_SPACIAL_CHAR]]],
     ["~", [false, [INVALID_SPACIAL_CHAR]]],
     ["_hello", [false, [INVALID_START_WITH_]]],
     [".hello", [false, [INVALID_START_WITH_DOT]]],
     ["fonction", [true, []]],
+    ["http2", [false, [INVALID_CORE_MODULES]]],
   ];
   table.forEach(([val, expected]) => {
     assertEquals(
       validateAll(val),
       expected,
-      `validateCheckAll(${val}) -> ${expected}`,
+      `validateAll(${val}) -> ${expected}`,
     );
   });
 });
@@ -211,11 +235,11 @@ Deno.test("validate", () => {
     [undefined, false, [false, INVALID_NOT_STRING]],
     [undefined, true, [false, [INVALID_NOT_STRING]]],
     [emptyString, false, [false, INVALID_LENGTH_0]],
-    [emptyString, true, [false, [INVALID_LENGTH_0]]],
+    [emptyString, true, [false, [INVALID_LENGTH_0, INVALID_SPACIAL_CHAR]]],
     ["A", false, [false, INVALID_LETTER_CASE]],
-    ["A", true, [false, [INVALID_LETTER_CASE]]],
+    ["A", true, [false, [INVALID_LETTER_CASE, INVALID_SPACIAL_CHAR]]],
     [" hello", false, [false, INVALID_TRIMABLE]],
-    [" hello", true, [false, [INVALID_TRIMABLE]]],
+    [" hello", true, [false, [INVALID_TRIMABLE, INVALID_SPACIAL_CHAR]]],
     ["~", false, [false, INVALID_SPACIAL_CHAR]],
     ["~", true, [false, [INVALID_SPACIAL_CHAR]]],
     ["_hello", false, [false, INVALID_START_WITH_]],
