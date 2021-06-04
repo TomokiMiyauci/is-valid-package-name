@@ -1,3 +1,8 @@
+# [v1.0.0-beta.9](https://github.com/TomokiMiyauci/is-valid-package-name/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2021-06-04)
+
+## ✨ New Features
+- [`e721088`](https://github.com/TomokiMiyauci/is-valid-package-name/commit/e721088)   Improve validation rules for npm, URL safe char and core module
+
 # [v1.0.0-beta.8](https://github.com/TomokiMiyauci/is-valid-package-name/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2021-06-02)
 
 ## 🐛 Bug Fixes
