@@ -1,3 +1,8 @@
+# [v1.0.0-beta.8](https://github.com/TomokiMiyauci/is-valid-package-name/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2021-06-02)
+
+## 🐛 Bug Fixes
+- [`97716bc`](https://github.com/TomokiMiyauci/is-valid-package-name/commit/97716bc)   Fix dependency version
+
 # [v1.0.0-beta.7](https://github.com/TomokiMiyauci/is-valid-package-name/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2021-05-29)
 
 ## 🚑 Critical Hotfixes
