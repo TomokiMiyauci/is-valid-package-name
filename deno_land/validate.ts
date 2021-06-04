@@ -1,5 +1,7 @@
 // Copyright 2021-present the is-valid-package-name authors. All rights reserved. MIT license.
 import {
+  AnyFn,
+  cast,
   everyFalse,
   failOnTrue,
   ifElse,
@@ -10,6 +12,7 @@ import {
   ltLength,
   NN,
   not,
+  pipe,
 } from "../deps.ts";
 import { gt40, isRegularLetter, isTrimable } from "../_shared/validate.ts";
 import {
@@ -20,6 +23,7 @@ import {
   INVALID_SPECIAL_LETTER,
   INVALID_TRIMABLE,
 } from "../_shared/constants.ts";
+import { ResultMsg, ResultMsgs } from "../_shared/types.ts";
 
 const lt3 = ltLength(3);
 
@@ -33,49 +37,52 @@ const table = [
 
 const isValid = ifElseFn(
   isString,
-  (val: unknown) =>
+  pipe(
+    cast<string>(),
     everyFalse(
       isLength0,
       isTrimable,
       lt3,
       gt40,
       not(isRegularLetter),
-    )(val as string),
+    ),
+  ),
   false,
 );
 
-const validateFailFast = (val: unknown): [boolean, string] =>
-  ifElse(isString(val), () => {
-    const result = failOnTrue(table as any)(val);
+const validateFailFast = ifElseFn(
+  isString,
+  pipe(
+    failOnTrue<AnyFn<unknown, boolean>, unknown>(table as any),
+    (
+      val: unknown,
+    ) =>
+      [
+        isUndefined(val),
+        ifElse(isUndefined(val), "", val as string),
+      ] as ResultMsg,
+  ),
+  [false, INVALID_NOT_STRING] as ResultMsg,
+);
 
-    return [
-      isUndefined(result),
-      ifElse(isUndefined(result), "", result as string),
-    ];
-  }, [
-    false,
-    INVALID_NOT_STRING,
-  ]);
-
-const validateAll = (val: unknown): [boolean, string[]] =>
-  ifElse(isString(val), () => {
-    const fails = table.filter(([validate]) => validate(val as string));
-    const filtered = fails.map(([_, msg]) => msg);
-    return [isLength0(filtered), filtered];
-  }, [
-    false,
-    [INVALID_NOT_STRING],
-  ]);
+const validateAll = ifElseFn(isString, (val: unknown) => {
+  const fails = table.filter(([validate]) => validate(val as string));
+  const filtered = fails.map(([_, msg]) => msg);
+  return [isLength0(filtered), filtered] as ResultMsgs;
+}, [
+  false,
+  [INVALID_NOT_STRING],
+] as ResultMsgs);
 
 const validate = <T extends boolean = false>(
   val: unknown,
   checkAll?: T,
-): T extends true ? [boolean, string[]] : [boolean, string] =>
+): T extends true ? ResultMsgs : ResultMsg =>
   ifElse(
     NN(checkAll),
     () => validateAll(val),
     () => validateFailFast(val),
-  ) as T extends true ? [boolean, string[]] : [boolean, string];
+  ) as T extends true ? ResultMsgs : ResultMsg;
 
 export {
   isRegularLetter,

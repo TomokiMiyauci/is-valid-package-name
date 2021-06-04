@@ -1,5 +1,6 @@
 // Copyright 2021-present the is-valid-package-name authors. All rights reserved. MIT license.
 import {
+  cast,
   everyFalse,
   failOnTrue,
   ifElse,
@@ -10,6 +11,7 @@ import {
   ltLength,
   NN,
   not,
+  pipe,
 } from "../deps.ts";
 import {
   INVALID_GREATER_THEN_40,
@@ -25,6 +27,7 @@ import {
   INVALID_RESERVED_NAME,
   RESERVED,
 } from "./_constants.ts";
+import { ResultMsg, ResultMsgs } from "../_shared/types.ts";
 
 const lt2 = ltLength(2);
 const isReservedName = includeFactory(RESERVED);
@@ -38,7 +41,7 @@ const table = [
   [not(isRegularLetter), INVALID_SPECIAL_LETTER],
 ] as const;
 
-const validateFailFast = (val: unknown): [boolean, string] =>
+const validateFailFast = (val: unknown): ResultMsg =>
   ifElse(isString(val), () => {
     const result = failOnTrue(table as any)(val);
 
@@ -51,7 +54,7 @@ const validateFailFast = (val: unknown): [boolean, string] =>
     INVALID_NOT_STRING,
   ]);
 
-const validateCheckAll = (val: unknown): [boolean, string[]] =>
+const validateAll = (val: unknown): ResultMsgs =>
   ifElse(isString(val), () => {
     const fails = table.filter(([validate]) => validate(val as string));
     const filtered = fails.map(([_, msg]) => msg);
@@ -64,16 +67,17 @@ const validateCheckAll = (val: unknown): [boolean, string[]] =>
 const validate = <T extends boolean = false>(
   val: unknown,
   checkAll?: T,
-): T extends true ? [boolean, string[]] : [boolean, string] =>
+): T extends true ? ResultMsgs : ResultMsg =>
   ifElse(
     NN(checkAll),
-    () => validateCheckAll(val),
+    () => validateAll(val),
     () => validateFailFast(val),
-  ) as T extends true ? [boolean, string[]] : [boolean, string];
+  ) as T extends true ? ResultMsgs : ResultMsg;
 
 const isValid = ifElseFn(
   isString,
-  (val: unknown) =>
+  pipe(
+    cast<string>(),
     everyFalse(
       isLength0,
       isTrimable,
@@ -81,7 +85,8 @@ const isValid = ifElseFn(
       gt40,
       isReservedName,
       not(isRegularLetter),
-    )(val as string),
+    ),
+  ),
   false,
 );
 
@@ -90,6 +95,6 @@ export {
   isValid,
   lt2,
   validate,
-  validateCheckAll,
+  validateAll,
   validateFailFast,
 };

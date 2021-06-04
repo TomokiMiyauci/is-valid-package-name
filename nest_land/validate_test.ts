@@ -2,7 +2,7 @@
 import {
   isValid,
   validate,
-  validateCheckAll,
+  validateAll,
   validateFailFast,
 } from "./validate.ts";
 import { assertEquals } from "../dev_deps.ts";
@@ -16,7 +16,7 @@ import {
 import { INVALID_LESS_THEN_2, INVALID_RESERVED_NAME } from "./_constants.ts";
 const lengthOf = (val: number): string => new Array(val).fill("a").join("");
 
-Deno.test("validateCheckAll", () => {
+Deno.test("validateAll", () => {
   const table: [unknown, [boolean, string[]]][] = [
     [undefined, [false, [INVALID_NOT_STRING]]],
     ["", [false, [
@@ -39,9 +39,9 @@ Deno.test("validateCheckAll", () => {
 
   table.forEach(([val, expected]) => {
     assertEquals(
-      validateCheckAll(val),
+      validateAll(val),
       expected,
-      `validateCheckAll(${val}) -> ${expected}`,
+      `validateAll(${val}) -> ${expected}`,
     );
   });
 });

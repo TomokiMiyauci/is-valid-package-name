@@ -1,5 +1,6 @@
 // Copyright 2021-present the is-valid-package-name authors. All rights reserved. MIT license.
 import {
+  cast,
   everyFalse,
   failOnTrue,
   gtLength,
@@ -10,6 +11,7 @@ import {
   isUndefined,
   NN,
   not,
+  pipe,
   startsWith,
 } from "../deps.ts";
 import { includeFactory } from "../_shared/composite.ts";
@@ -68,18 +70,24 @@ const table = [
   [isCoreModuleName, INVALID_CORE_MODULES],
 ] as const;
 
-const isValid = ifElseFn(isString, (val: unknown) =>
-  everyFalse(
-    isLength0,
-    isTrimable,
-    gt214,
-    isStartWithDot,
-    isStartWith_,
-    not(isLowerCase),
-    not(hasSpecialCharacter),
-    isBlacklistName,
-    isCoreModuleName,
-  )(val as string), false);
+const isValid = ifElseFn(
+  isString,
+  pipe(
+    cast<string>(),
+    everyFalse(
+      isLength0,
+      isTrimable,
+      gt214,
+      isStartWithDot,
+      isStartWith_,
+      not(isLowerCase),
+      not(hasSpecialCharacter),
+      isBlacklistName,
+      isCoreModuleName,
+    ),
+  ),
+  false,
+);
 
 const validateAll = (val: unknown): [boolean, string[]] =>
   ifElse(isString(val), () => {

@@ -11,7 +11,7 @@ const banner =
 
 const replaceOption = {
   ".ts": "",
-  "https://deno.land/x/fonction@v1.8.0-beta.7/mod": "fonction",
+  "https://deno.land/x/fonction@v1.8.1/mod": "fonction",
   "https://deno.land/x/is_valid@v1.0.0-beta.9/mod": "@miyauci/is-valid",
   preventAssignment: true,
 };
