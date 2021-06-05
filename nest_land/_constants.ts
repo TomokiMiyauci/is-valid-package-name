@@ -1,10 +1,10 @@
 // Copyright 2021-present the is-valid-package-name authors. All rights reserved. MIT license.
 
-export const INVALID_LESS_THEN_2 = "Name length must be greater equal than 2";
-export const INVALID_RESERVED_NAME =
-  "Name is standard package name or reserved name";
+export const INVALID_LESS_THEN_2 = "Name length must be greater than 1";
+export const INVALID_CORE_MODULE_NAME = "Name is standard module name";
 
-export const RESERVED = [
+export const INVALID_RESERVED_NAME = "Name is reserved name";
+export const CORE_MODULE_NAMES = [
   "_util",
   "archive",
   "async",
@@ -61,6 +61,7 @@ export const RESERVED = [
   "textproto",
   "uuid",
   "ws",
-  "version",
-  "libre",
+  "version"
 ];
+
+export const RESERVED_NAMES = ["libre"];

@@ -3,45 +3,48 @@ import {
   isValid,
   validate,
   validateAll,
-  validateFailFast,
+  validateFailFast
 } from "./validate.ts";
 import { assertEquals } from "../dev_deps.ts";
 import {
   INVALID_GREATER_THEN_40,
   INVALID_LENGTH_0,
   INVALID_NOT_STRING,
-  INVALID_SPECIAL_LETTER,
-  INVALID_TRIMABLE,
+  INVALID_SPECIAL_CHAR,
+  INVALID_TRIMMABLE
 } from "../_shared/constants.ts";
-import { INVALID_LESS_THEN_2, INVALID_RESERVED_NAME } from "./_constants.ts";
+import {
+  INVALID_CORE_MODULE_NAME,
+  INVALID_LESS_THEN_2,
+  INVALID_RESERVED_NAME
+} from "./_constants.ts";
 const lengthOf = (val: number): string => new Array(val).fill("a").join("");
 
 Deno.test("validateAll", () => {
   const table: [unknown, [boolean, string[]]][] = [
     [undefined, [false, [INVALID_NOT_STRING]]],
-    ["", [false, [
-      INVALID_LENGTH_0,
-      INVALID_LESS_THEN_2,
-      INVALID_SPECIAL_LETTER,
-    ]]],
-    [" hello", [false, [INVALID_TRIMABLE, INVALID_SPECIAL_LETTER]]],
+    [
+      "",
+      [false, [INVALID_LENGTH_0, INVALID_LESS_THEN_2, INVALID_SPECIAL_CHAR]]
+    ],
+    [" hello", [false, [INVALID_TRIMMABLE, INVALID_SPECIAL_CHAR]]],
     ["a", [false, [INVALID_LESS_THEN_2]]],
     [lengthOf(41), [false, [INVALID_GREATER_THEN_40]]],
     [lengthOf(40), [true, []]],
-    ["A", [false, [INVALID_LESS_THEN_2, INVALID_SPECIAL_LETTER]]],
-    ["Abc", [false, [INVALID_SPECIAL_LETTER]]],
-    ["@@", [false, [INVALID_SPECIAL_LETTER]]],
-    ["fff fff", [false, [INVALID_SPECIAL_LETTER]]],
-    ["?hogehoge", [false, [INVALID_SPECIAL_LETTER]]],
-    ["console", [false, [INVALID_RESERVED_NAME]]],
-    ["fonction", [true, []]],
+    ["A", [false, [INVALID_LESS_THEN_2, INVALID_SPECIAL_CHAR]]],
+    ["Abc", [false, [INVALID_SPECIAL_CHAR]]],
+    ["@@", [false, [INVALID_SPECIAL_CHAR]]],
+    ["fff fff", [false, [INVALID_SPECIAL_CHAR]]],
+    ["?hogehoge", [false, [INVALID_SPECIAL_CHAR]]],
+    ["console", [false, [INVALID_CORE_MODULE_NAME]]],
+    ["fonction", [true, []]]
   ];
 
   table.forEach(([val, expected]) => {
     assertEquals(
       validateAll(val),
       expected,
-      `validateAll(${val}) -> ${expected}`,
+      `validateAll(${val}) -> ${expected}`
     );
   });
 });
@@ -50,24 +53,25 @@ Deno.test("validateFailFast", () => {
   const table: [unknown, [boolean, string]][] = [
     [undefined, [false, INVALID_NOT_STRING]],
     ["", [false, INVALID_LENGTH_0]],
-    [" hello", [false, INVALID_TRIMABLE]],
+    [" hello", [false, INVALID_TRIMMABLE]],
     ["a", [false, INVALID_LESS_THEN_2]],
     [lengthOf(41), [false, INVALID_GREATER_THEN_40]],
     [lengthOf(40), [true, ""]],
     ["A", [false, INVALID_LESS_THEN_2]],
-    ["Abc", [false, INVALID_SPECIAL_LETTER]],
-    ["@@", [false, INVALID_SPECIAL_LETTER]],
-    ["fff fff", [false, INVALID_SPECIAL_LETTER]],
-    ["?hogehoge", [false, INVALID_SPECIAL_LETTER]],
-    ["console", [false, INVALID_RESERVED_NAME]],
-    ["fonction", [true, ""]],
+    ["Abc", [false, INVALID_SPECIAL_CHAR]],
+    ["@@", [false, INVALID_SPECIAL_CHAR]],
+    ["fff fff", [false, INVALID_SPECIAL_CHAR]],
+    ["?hogehoge", [false, INVALID_SPECIAL_CHAR]],
+    ["console", [false, INVALID_CORE_MODULE_NAME]],
+    ["libre", [false, INVALID_RESERVED_NAME]],
+    ["fonction", [true, ""]]
   ];
 
   table.forEach(([val, expected]) => {
     assertEquals(
       validateFailFast(val),
       expected,
-      `validateFailFast(${val}) -> ${expected}`,
+      `validateFailFast(${val}) -> ${expected}`
     );
   });
 });
@@ -76,6 +80,8 @@ Deno.test("isValid", () => {
   const table: [unknown, boolean][] = [
     [undefined, false],
     ["", false],
+    [" ", false],
+    ["@", false],
     [" hello", false],
     ["a", false],
     [lengthOf(41), false],
@@ -87,14 +93,11 @@ Deno.test("isValid", () => {
     ["?hogehoge", false],
     ["console", false],
     ["fonction", true],
+    ["libre", false]
   ];
 
   table.forEach(([val, expected]) => {
-    assertEquals(
-      isValid(val),
-      expected,
-      `isValid(${val}) -> ${expected}`,
-    );
+    assertEquals(isValid(val), expected, `isValid(${val}) -> ${expected}`);
   });
 });
 
@@ -103,13 +106,13 @@ Deno.test("validate", () => {
     [undefined, false, [false, INVALID_NOT_STRING]],
     [undefined, true, [false, [INVALID_NOT_STRING]]],
     ["", false, [false, INVALID_LENGTH_0]],
-    ["", true, [false, [
-      INVALID_LENGTH_0,
-      INVALID_LESS_THEN_2,
-      INVALID_SPECIAL_LETTER,
-    ]]],
-    [" hello", false, [false, INVALID_TRIMABLE]],
-    [" hello", true, [false, [INVALID_TRIMABLE, INVALID_SPECIAL_LETTER]]],
+    [
+      "",
+      true,
+      [false, [INVALID_LENGTH_0, INVALID_LESS_THEN_2, INVALID_SPECIAL_CHAR]]
+    ],
+    [" hello", false, [false, INVALID_TRIMMABLE]],
+    [" hello", true, [false, [INVALID_TRIMMABLE, INVALID_SPECIAL_CHAR]]],
     ["a", false, [false, INVALID_LESS_THEN_2]],
     ["a", true, [false, [INVALID_LESS_THEN_2]]],
     [lengthOf(41), false, [false, INVALID_GREATER_THEN_40]],
@@ -117,26 +120,27 @@ Deno.test("validate", () => {
     [lengthOf(40), false, [true, ""]],
     [lengthOf(40), true, [true, []]],
     ["A", false, [false, INVALID_LESS_THEN_2]],
-    ["A", true, [false, [INVALID_LESS_THEN_2, INVALID_SPECIAL_LETTER]]],
-    ["Abc", false, [false, INVALID_SPECIAL_LETTER]],
-    ["Abc", true, [false, [INVALID_SPECIAL_LETTER]]],
-    ["@@", false, [false, INVALID_SPECIAL_LETTER]],
-    ["@@", true, [false, [INVALID_SPECIAL_LETTER]]],
-    ["fff fff", false, [false, INVALID_SPECIAL_LETTER]],
-    ["fff fff", true, [false, [INVALID_SPECIAL_LETTER]]],
-    ["?hogehoge", false, [false, INVALID_SPECIAL_LETTER]],
-    ["?hogehoge", true, [false, [INVALID_SPECIAL_LETTER]]],
-    ["console", false, [false, INVALID_RESERVED_NAME]],
-    ["console", true, [false, [INVALID_RESERVED_NAME]]],
+    ["A", true, [false, [INVALID_LESS_THEN_2, INVALID_SPECIAL_CHAR]]],
+    ["Abc", false, [false, INVALID_SPECIAL_CHAR]],
+    ["Abc", true, [false, [INVALID_SPECIAL_CHAR]]],
+    ["@@", false, [false, INVALID_SPECIAL_CHAR]],
+    ["@@", true, [false, [INVALID_SPECIAL_CHAR]]],
+    ["fff fff", false, [false, INVALID_SPECIAL_CHAR]],
+    ["fff fff", true, [false, [INVALID_SPECIAL_CHAR]]],
+    ["?hogehoge", false, [false, INVALID_SPECIAL_CHAR]],
+    ["?hogehoge", true, [false, [INVALID_SPECIAL_CHAR]]],
+    ["console", false, [false, INVALID_CORE_MODULE_NAME]],
+    ["console", true, [false, [INVALID_CORE_MODULE_NAME]]],
+    ["libre", true, [false, [INVALID_RESERVED_NAME]]],
     ["fonction", false, [true, ""]],
-    ["fonction", true, [true, []]],
+    ["fonction", true, [true, []]]
   ];
 
   table.forEach(([val, checkAll, expected]) => {
     assertEquals(
       validate(val, checkAll),
       expected,
-      `validate(${val}, ${checkAll}) -> ${expected}`,
+      `validate(${val}, ${checkAll}) -> ${expected}`
     );
   });
 });
