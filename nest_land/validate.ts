@@ -14,7 +14,7 @@ import {
   pipe
 } from "../deps.ts";
 import {
-  INVALID_GREATER_THEN_40,
+  INVALID_GREATER_THAN_40,
   INVALID_LENGTH_0,
   INVALID_NOT_STRING,
   INVALID_SPECIAL_CHAR,
@@ -25,7 +25,7 @@ import { includeFactory } from "../_shared/composite.ts";
 import {
   CORE_MODULE_NAMES,
   INVALID_CORE_MODULE_NAME,
-  INVALID_LESS_THEN_2,
+  INVALID_LESS_THAN_2,
   INVALID_RESERVED_NAME,
   RESERVED_NAMES
 } from "./_constants.ts";
@@ -38,8 +38,8 @@ const isCoreModuleName = includeFactory(CORE_MODULE_NAMES);
 const table = [
   [isLength0, INVALID_LENGTH_0],
   [isTrimable, INVALID_TRIMMABLE],
-  [lt2, INVALID_LESS_THEN_2],
-  [gt40, INVALID_GREATER_THEN_40],
+  [lt2, INVALID_LESS_THAN_2],
+  [gt40, INVALID_GREATER_THAN_40],
   [isCoreModuleName, INVALID_CORE_MODULE_NAME],
   [isReservedName, INVALID_RESERVED_NAME],
   [not(isRegularLetter), INVALID_SPECIAL_CHAR]

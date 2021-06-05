@@ -12,7 +12,7 @@ import {
   NN,
   not,
   pipe,
-  startsWith,
+  startsWith
 } from "../deps.ts";
 import { includeFactory } from "../_shared/composite.ts";
 import { normalize } from "./_utils.ts";
@@ -20,20 +20,20 @@ import { normalize } from "./_utils.ts";
 import {
   INVALID_LENGTH_0,
   INVALID_NOT_STRING,
-  INVALID_TRIMABLE,
+  INVALID_TRIMMABLE
 } from "../_shared/constants.ts";
 
 import {
   BLACKLIST,
   CORE_MODULES,
   INVALID_BLACKLIST,
-  INVALID_CORE_MODULES,
-  INVALID_GREATER_THEN_214,
+  INVALID_CORE_MODULE_NAME,
+  INVALID_GREATER_THAN_214,
   INVALID_LETTER_CASE,
   INVALID_SPACIAL_CHAR,
-  INVALID_START_WITH_,
-  INVALID_START_WITH_DOT,
-  RegularLetter,
+  INVALID_START_WITH_UNDERSCORE,
+  INVALID_START_WITH_PERIOD,
+  RegularLetter
 } from "./_constants.ts";
 import { isTrimable } from "../_shared/validate.ts";
 
@@ -46,28 +46,20 @@ const isStartWith_ = startsWith("_");
 const hasSpecialCharacter = test(RegularLetter);
 const isBlacklistName = includeFactory(BLACKLIST);
 const isCoreModuleName = includeFactory(CORE_MODULES);
-const isEqualNormalizedName = (name: string) =>
-  (packageName: string): boolean => normalize(packageName) === name;
+const isEqualNormalizedName = (name: string) => (
+  packageName: string
+): boolean => normalize(packageName) === name;
 
 const table = [
-  [
-    isLength0,
-    INVALID_LENGTH_0,
-  ],
-  [isTrimable, INVALID_TRIMABLE],
-  [gt214, INVALID_GREATER_THEN_214],
-  [
-    isStartWithDot,
-    INVALID_START_WITH_DOT,
-  ],
-  [
-    isStartWith_,
-    INVALID_START_WITH_,
-  ],
+  [isLength0, INVALID_LENGTH_0],
+  [isTrimable, INVALID_TRIMMABLE],
+  [gt214, INVALID_GREATER_THAN_214],
+  [isStartWithDot, INVALID_START_WITH_PERIOD],
+  [isStartWith_, INVALID_START_WITH_UNDERSCORE],
   [not(isLowerCase), INVALID_LETTER_CASE],
   [not(hasSpecialCharacter), INVALID_SPACIAL_CHAR],
   [isBlacklistName, INVALID_BLACKLIST],
-  [isCoreModuleName, INVALID_CORE_MODULES],
+  [isCoreModuleName, INVALID_CORE_MODULE_NAME]
 ] as const;
 
 const isValid = ifElseFn(
@@ -83,40 +75,45 @@ const isValid = ifElseFn(
       not(isLowerCase),
       not(hasSpecialCharacter),
       isBlacklistName,
-      isCoreModuleName,
-    ),
+      isCoreModuleName
+    )
   ),
-  false,
+  false
 );
 
 const validateAll = (val: unknown): [boolean, string[]] =>
-  ifElse(isString(val), () => {
-    const fails = table.filter(([validate]) => validate(val as string));
-    const filtered = fails.map(([_, msg]) => msg);
-    return [isLength0(filtered), filtered];
-  }, [
-    false,
-    [INVALID_NOT_STRING],
-  ]);
+  ifElse(
+    isString(val),
+    () => {
+      const fails = table.filter(([validate]) => validate(val as string));
+      const filtered = fails.map(([_, msg]) => msg);
+      return [isLength0(filtered), filtered];
+    },
+    [false, [INVALID_NOT_STRING]]
+  );
 
 const validateFailFast = (val: unknown): [boolean, string] =>
-  ifElse(isString(val), () => {
-    const result = failOnTrue(table as any)(val);
+  ifElse(
+    isString(val),
+    () => {
+      const result = failOnTrue(table as any)(val);
 
-    return [
-      isUndefined(result),
-      ifElse(isUndefined(result), "", result as string),
-    ];
-  }, [false, INVALID_NOT_STRING]);
+      return [
+        isUndefined(result),
+        ifElse(isUndefined(result), "", result as string)
+      ];
+    },
+    [false, INVALID_NOT_STRING]
+  );
 
 const validate = <T extends boolean = false>(
   val: unknown,
-  checkAll?: T,
+  checkAll?: T
 ): T extends true ? [boolean, string[]] : [boolean, string] =>
   ifElse(
     NN(checkAll),
     () => validateAll(val),
-    () => validateFailFast(val),
+    () => validateFailFast(val)
   ) as T extends true ? [boolean, string[]] : [boolean, string];
 
 export {
@@ -129,5 +126,5 @@ export {
   isValid,
   validate,
   validateAll,
-  validateFailFast,
+  validateFailFast
 };

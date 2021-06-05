@@ -1,6 +1,6 @@
 // Copyright 2021-present the is-valid-package-name authors. All rights reserved. MIT license.
 
-export const INVALID_LESS_THEN_2 = "Name length must be greater than 1";
+export const INVALID_LESS_THAN_2 = "Name length must be greater than 1";
 export const INVALID_CORE_MODULE_NAME = "Name is standard module name";
 
 export const INVALID_RESERVED_NAME = "Name is reserved name";

@@ -32,7 +32,7 @@ isValid("?hogehoge"); // false
 ```ts
 validate(undefined); // [false, INVALID_NOT_STRING]
 validate(undefined, true); // [false, [INVALID_NOT_STRING]]
-validate("a"); // [false, INVALID_LESS_THEN_2]
+validate("a"); // [false, INVALID_LESS_THAN_2]
 validate("is_valid_package_name"); // [true, '']
 ```
 
@@ -47,8 +47,8 @@ The rules from [source code](https://github.com/nestdotland/x/blob/master/src/ro
 | The input type is `string`.                                     | `INVALID_NOT_STRING`       | `Name must be a string`                            |
 | Package name length must be greater than zero.                  | `INVALID_LENGTH_0`         | `Name length must be greater than zero`            |
 | Package name should not contain any leading or trailing spaces. | `INVALID_TRIMMABLE`        | `Name cannot contain leading or trailing spaces`   |
-| Package name length should be greater than 1.                   | `INVALID_LESS_THEN_2`      | `Name length must be greater than 1`               |
-| Package name length should be less than 41.                     | `INVALID_GREATER_THEN_40`  | `Name length must be less than 41`                 |
+| Package name length should be greater than 1.                   | `INVALID_LESS_THAN_2`      | `Name length must be greater than 1`               |
+| Package name length should be less than 41.                     | `INVALID_GREATER_THAN_40`  | `Name length must be less than 41`                 |
 | Package name should only the characters a-z, 0-9 and \_ .       | `INVALID_SPECIAL_CHAR`     | `Name contains only the characters a-z, 0-9 and _` |
 | Package name cannot be the same as core module name.            | `INVALID_CORE_MODULE_NAME` | `Name is standard module name`                     |
 | Package name cannot be the same as reserved name.               | `INVALID_RESERVED_NAME`    | `Name is reserved name`                            |
@@ -110,7 +110,7 @@ if (!result) {
 The `checkAll` option must be `true` to return all validation errors.
 
 ```ts
-const [result, errors] = validate("", true); // [false, [INVALID_LENGTH_0, INVALID_LESS_THEN_2, INVALID_SPECIAL_CHAR]]
+const [result, errors] = validate("", true); // [false, [INVALID_LENGTH_0, INVALID_LESS_THAN_2, INVALID_SPECIAL_CHAR]]
 
 if (!result) {
   errors.forEach(error => console.error(error));

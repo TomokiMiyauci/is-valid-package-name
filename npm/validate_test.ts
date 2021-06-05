@@ -7,23 +7,23 @@ import {
   isValid,
   validate,
   validateAll,
-  validateFailFast,
+  validateFailFast
 } from "./validate.ts";
 import { normalize } from "./_utils.ts";
 import { assertEquals } from "../dev_deps.ts";
 import {
   INVALID_BLACKLIST,
-  INVALID_CORE_MODULES,
-  INVALID_GREATER_THEN_214,
+  INVALID_CORE_MODULE_NAME,
+  INVALID_GREATER_THAN_214,
   INVALID_LETTER_CASE,
   INVALID_SPACIAL_CHAR,
-  INVALID_START_WITH_,
-  INVALID_START_WITH_DOT,
+  INVALID_START_WITH_UNDERSCORE,
+  INVALID_START_WITH_PERIOD
 } from "./_constants.ts";
 import {
   INVALID_LENGTH_0,
   INVALID_NOT_STRING,
-  INVALID_TRIMABLE,
+  INVALID_TRIMMABLE
 } from "../_shared/constants.ts";
 
 const emptyString = "";
@@ -32,20 +32,17 @@ Deno.test("isLowerCase", () => {
   const table: [string, boolean][] = [
     [emptyString, true],
     ["a", true],
-    [
-      "hoge",
-      true,
-    ],
+    ["hoge", true],
     ["Hello", false],
     ["heLlo", false],
-    ["hello Everyone", false],
+    ["hello Everyone", false]
   ];
 
   table.forEach(([val, expected]) => {
     assertEquals(
       isLowerCase(val),
       expected,
-      `isLowerCase(${val}) -> ${expected}`,
+      `isLowerCase(${val}) -> ${expected}`
     );
   });
 });
@@ -99,14 +96,14 @@ Deno.test("hasSpecialCharacter", () => {
     ["\\", false],
     ["\uD800\uDFFF", false],
     ["\uD800\uDFFF", false],
-    ["!|~*'()#;,/?:@&=+$[<,>}{]]^%`", false],
+    ["!|~*'()#;,/?:@&=+$[<,>}{]]^%`", false]
   ];
 
   table.forEach(([val, expected]) => {
     assertEquals(
       hasSpecialCharacter(val),
       expected,
-      `hasSpecialCharacter(${val}) -> ${expected}`,
+      `hasSpecialCharacter(${val}) -> ${expected}`
     );
   });
 });
@@ -116,14 +113,14 @@ Deno.test("isBlacklistName", () => {
     [emptyString, false],
     ["hello", false],
     ["node_modules", true],
-    ["favicon.ico", true],
+    ["favicon.ico", true]
   ];
 
   table.forEach(([val, expected]) => {
     assertEquals(
       isBlacklistName(val),
       expected,
-      `isBlacklistName(${val}) -> ${expected}`,
+      `isBlacklistName(${val}) -> ${expected}`
     );
   });
 });
@@ -137,14 +134,14 @@ Deno.test("isEqualNormalizedName", () => {
     ["name-able", "n-a-m-e-a-b-l-e", true],
     ["n.a.m-e..a-b-le", "na.m.e.a.ble", true],
     ["nameable", "nnamebale", false],
-    ["n-a--m-e-a-b-l_e", "n-a-m_e._a.b.le", true],
+    ["n-a--m-e-a-b-l_e", "n-a-m_e._a.b.le", true]
   ];
 
   table.forEach(([name, packageName, expected]) => {
     assertEquals(
       isEqualNormalizedName(normalize(name))(packageName),
       expected,
-      `isEqualNormalizedName(${name})(${packageName}) -> ${expected}`,
+      `isEqualNormalizedName(${name})(${packageName}) -> ${expected}`
     );
   });
 });
@@ -154,22 +151,22 @@ Deno.test("validateFailFast", () => {
     [undefined, [false, INVALID_NOT_STRING]],
     ["", [false, INVALID_LENGTH_0]],
     [new Array(214).fill("a").join(""), [true, ""]],
-    [new Array(215).fill("a").join(""), [false, INVALID_GREATER_THEN_214]],
-    [" hello", [false, INVALID_TRIMABLE]],
+    [new Array(215).fill("a").join(""), [false, INVALID_GREATER_THAN_214]],
+    [" hello", [false, INVALID_TRIMMABLE]],
     ["A", [false, INVALID_LETTER_CASE]],
-    [" Abc", [false, INVALID_TRIMABLE]],
+    [" Abc", [false, INVALID_TRIMMABLE]],
     ["Abc", [false, INVALID_LETTER_CASE]],
     ["~", [false, INVALID_SPACIAL_CHAR]],
-    ["_hello", [false, INVALID_START_WITH_]],
-    [".hello", [false, INVALID_START_WITH_DOT]],
+    ["_hello", [false, INVALID_START_WITH_UNDERSCORE]],
+    [".hello", [false, INVALID_START_WITH_PERIOD]],
     ["fonction", [true, ""]],
-    ["v8", [false, INVALID_CORE_MODULES]],
+    ["v8", [false, INVALID_CORE_MODULE_NAME]]
   ];
   table.forEach(([val, expected]) => {
     assertEquals(
       validateFailFast(val),
       expected,
-      `validateFailFast(${val}) -> ${expected}`,
+      `validateFailFast(${val}) -> ${expected}`
     );
   });
 });
@@ -187,45 +184,37 @@ Deno.test("isValid", () => {
     ["_hello", false],
     [".hello", false],
     ["fonction", true],
-    ["assert", false],
+    ["assert", false]
   ];
   table.forEach(([val, expected]) => {
-    assertEquals(
-      isValid(val),
-      expected,
-      `isValid(${val}) -> ${expected}`,
-    );
+    assertEquals(isValid(val), expected, `isValid(${val}) -> ${expected}`);
   });
 });
 
 Deno.test("validateAll", () => {
   const table: [unknown, [boolean, string[]]][] = [
     [undefined, [false, [INVALID_NOT_STRING]]],
-    ["", [false, [
-      INVALID_LENGTH_0,
-      INVALID_SPACIAL_CHAR,
-    ]]],
+    ["", [false, [INVALID_LENGTH_0, INVALID_SPACIAL_CHAR]]],
     [new Array(214).fill("a").join(""), [true, []]],
-    [new Array(215).fill("a").join(""), [false, [INVALID_GREATER_THEN_214]]],
-    [" hello", [false, [INVALID_TRIMABLE, INVALID_SPACIAL_CHAR]]],
-    [" Abc", [false, [
-      INVALID_TRIMABLE,
-      INVALID_LETTER_CASE,
-      INVALID_SPACIAL_CHAR,
-    ]]],
+    [new Array(215).fill("a").join(""), [false, [INVALID_GREATER_THAN_214]]],
+    [" hello", [false, [INVALID_TRIMMABLE, INVALID_SPACIAL_CHAR]]],
+    [
+      " Abc",
+      [false, [INVALID_TRIMMABLE, INVALID_LETTER_CASE, INVALID_SPACIAL_CHAR]]
+    ],
     ["A", [false, [INVALID_LETTER_CASE, INVALID_SPACIAL_CHAR]]],
     ["Abc", [false, [INVALID_LETTER_CASE, INVALID_SPACIAL_CHAR]]],
     ["~", [false, [INVALID_SPACIAL_CHAR]]],
-    ["_hello", [false, [INVALID_START_WITH_]]],
-    [".hello", [false, [INVALID_START_WITH_DOT]]],
+    ["_hello", [false, [INVALID_START_WITH_UNDERSCORE]]],
+    [".hello", [false, [INVALID_START_WITH_PERIOD]]],
     ["fonction", [true, []]],
-    ["http2", [false, [INVALID_CORE_MODULES]]],
+    ["http2", [false, [INVALID_CORE_MODULE_NAME]]]
   ];
   table.forEach(([val, expected]) => {
     assertEquals(
       validateAll(val),
       expected,
-      `validateAll(${val}) -> ${expected}`,
+      `validateAll(${val}) -> ${expected}`
     );
   });
 });
@@ -238,14 +227,14 @@ Deno.test("validate", () => {
     [emptyString, true, [false, [INVALID_LENGTH_0, INVALID_SPACIAL_CHAR]]],
     ["A", false, [false, INVALID_LETTER_CASE]],
     ["A", true, [false, [INVALID_LETTER_CASE, INVALID_SPACIAL_CHAR]]],
-    [" hello", false, [false, INVALID_TRIMABLE]],
-    [" hello", true, [false, [INVALID_TRIMABLE, INVALID_SPACIAL_CHAR]]],
+    [" hello", false, [false, INVALID_TRIMMABLE]],
+    [" hello", true, [false, [INVALID_TRIMMABLE, INVALID_SPACIAL_CHAR]]],
     ["~", false, [false, INVALID_SPACIAL_CHAR]],
     ["~", true, [false, [INVALID_SPACIAL_CHAR]]],
-    ["_hello", false, [false, INVALID_START_WITH_]],
-    ["_hello", true, [false, [INVALID_START_WITH_]]],
-    [".hello", false, [false, INVALID_START_WITH_DOT]],
-    [".hello", true, [false, [INVALID_START_WITH_DOT]]],
+    ["_hello", false, [false, INVALID_START_WITH_UNDERSCORE]],
+    ["_hello", true, [false, [INVALID_START_WITH_UNDERSCORE]]],
+    [".hello", false, [false, INVALID_START_WITH_PERIOD]],
+    [".hello", true, [false, [INVALID_START_WITH_PERIOD]]],
     ["fonction", false, [true, ""]],
     ["fonction", true, [true, []]],
     ["fonction~", false, [false, INVALID_SPACIAL_CHAR]],
@@ -253,14 +242,14 @@ Deno.test("validate", () => {
     ["node_modules", false, [false, INVALID_BLACKLIST]],
     ["node_modules", true, [false, [INVALID_BLACKLIST]]],
     ["favicon.ico", false, [false, INVALID_BLACKLIST]],
-    ["favicon.ico", true, [false, [INVALID_BLACKLIST]]],
+    ["favicon.ico", true, [false, [INVALID_BLACKLIST]]]
   ];
 
   table.forEach(([val, checkAll, expected]) => {
     assertEquals(
       validate(val, checkAll),
       expected,
-      `validate(${val}, ${checkAll}) -> ${expected}`,
+      `validate(${val}, ${checkAll}) -> ${expected}`
     );
   });
 });
