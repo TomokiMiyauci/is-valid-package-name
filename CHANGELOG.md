@@ -1,3 +1,8 @@
+# [v1.0.0-beta.10](https://github.com/TomokiMiyauci/is-valid-package-name/compare/v1.0.0-beta.9...v1.0.0-beta.10) (2021-06-05)
+
+## 🐛 Bug Fixes
+- [`2a5aee1`](https://github.com/TomokiMiyauci/is-valid-package-name/commit/2a5aee1)   Split validator from core module name and reserved name
+
 # [v1.0.0-beta.9](https://github.com/TomokiMiyauci/is-valid-package-name/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2021-06-04)
 
 ## ✨ New Features
