@@ -25,7 +25,6 @@ const config = [
       replace(replaceOption),
       ts({
         transpiler: "babel",
-        browserslist: ["defaults", "node 6", "supports es6-module"],
         tsconfig: (resolvedConfig) => ({
           ...resolvedConfig,
           declaration: false,

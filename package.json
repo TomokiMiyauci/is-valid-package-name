@@ -68,5 +68,12 @@
   },
   "files": [
     "dist"
+  ],
+  "browserslist": [
+    "defaults",
+    "last 8 version",
+    "not IE <= 11",
+    "not ie_mob <= 11",
+    "node 6"
   ]
 }
