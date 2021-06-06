@@ -1,3 +1,8 @@
+# [v1.0.0-beta.11](https://github.com/TomokiMiyauci/is-valid-package-name/compare/v1.0.0-beta.10...v1.0.0-beta.11) (2021-06-06)
+
+## 🐛 Bug Fixes
+- [`69d5fee`](https://github.com/TomokiMiyauci/is-valid-package-name/commit/69d5fee)   Fix export name
+
 # [v1.0.0-beta.10](https://github.com/TomokiMiyauci/is-valid-package-name/compare/v1.0.0-beta.9...v1.0.0-beta.10) (2021-06-05)
 
 ## 🐛 Bug Fixes
