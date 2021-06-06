@@ -1,3 +1,23 @@
+# v1.0.0 (2021-06-06)
+
+## ✨ New Features
+- [`88fd994`](https://github.com/TomokiMiyauci/is-valid-package-name/commit/88fd994)   Add validator for nest.land package name 
+- [`c9aa820`](https://github.com/TomokiMiyauci/is-valid-package-name/commit/c9aa820)   Add validator for npm module name 
+- [`6600ce6`](https://github.com/TomokiMiyauci/is-valid-package-name/commit/6600ce6)   Add validation for deno.land module name 
+- [`e721088`](https://github.com/TomokiMiyauci/is-valid-package-name/commit/e721088)   Improve validation rules for npm, URL safe char and core module 
+
+## 🐛 Bug Fixes
+- [`20e3411`](https://github.com/TomokiMiyauci/is-valid-package-name/commit/20e3411)   Fix release command 
+- [`2f3c267`](https://github.com/TomokiMiyauci/is-valid-package-name/commit/2f3c267)   Change output bundle file 
+- [`1998418`](https://github.com/TomokiMiyauci/is-valid-package-name/commit/1998418)   Fix export file path 
+- [`36e41c7`](https://github.com/TomokiMiyauci/is-valid-package-name/commit/36e41c7)   Fix type definitions 
+- [`97716bc`](https://github.com/TomokiMiyauci/is-valid-package-name/commit/97716bc)   Fix dependency version 
+- [`2a5aee1`](https://github.com/TomokiMiyauci/is-valid-package-name/commit/2a5aee1)   Split validator from core module name and reserved name 
+- [`69d5fee`](https://github.com/TomokiMiyauci/is-valid-package-name/commit/69d5fee)   Fix export name 
+
+## 🚑 Critical Hotfixes
+- [`92e960c`](https://github.com/TomokiMiyauci/is-valid-package-name/commit/92e960c)   Up dependnecy version
+
 # [v1.0.0-beta.11](https://github.com/TomokiMiyauci/is-valid-package-name/compare/v1.0.0-beta.10...v1.0.0-beta.11) (2021-06-06)
 
 ## 🐛 Bug Fixes
