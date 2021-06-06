@@ -15,7 +15,7 @@ Validation for package name
 [![nest badge](https://nest.land/badge.svg)](https://nest.land/package/is_valid_package_name)
 [![deno doc](https://doc.deno.land/badge.svg)](https://doc.deno.land/https/deno.land/x/is_valid_package_name/mod.ts)
 [![deno version](https://img.shields.io/badge/deno-^1.6.0-lightgrey?logo=deno)](https://github.com/denoland/deno)
-![node support version](https://img.shields.io/badge/node-%5E14.16.0-yellow)
+![node support version](https://img.shields.io/badge/node-%5E6.17.0-yellow)
 ![npm download](https://img.shields.io/npm/dw/is-valid-package-name?color=blue)
 
 ![GitHub (Pre-)Release Date](https://img.shields.io/github/release-date-pre/TomokiMiyauci/is-valid-package-name)
@@ -44,9 +44,9 @@ A validator collection of package names for each package registry
 Currently providing validators for the following package registries:
 Check each for detailed validation rules.
 
-- [npm](./npm/README.md)  
-- [deno.land](./deno_land/README.md)  
-- [nest.land](./nest_land/README.md)  
+- [npm](./npm/README.md)
+- [deno.land](./deno_land/README.md)
+- [nest.land](./nest_land/README.md)
 
 ## :zap: Overview
 
