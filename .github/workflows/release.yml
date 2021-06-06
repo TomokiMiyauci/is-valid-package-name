@@ -54,11 +54,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup Deno
-        uses: denolib/setup-deno@v2
-        with:
-          deno-version: v1.9.x
-
       - name: Restore node_modules
         id: node_modules_cache_id
         uses: actions/cache@v2
