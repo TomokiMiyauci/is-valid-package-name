@@ -107,7 +107,7 @@ The `checkAll` option must be `true` to return all validation errors.
 
 ```ts
 validate(".package", true); // [false, [INVALID_START_WITH_PERIOD]]
-const [result, errors] = validate(" Abc", true); // [false, [INVALID_TRIMMABLE, INVALID_LETTER_CASE]]
+const [result, errors] = validate(" Abc", true); // [false, [INVALID_TRIMMABLE, INVALID_LETTER_CASE, INVALID_SPACIAL_CHAR]]
 
 if (!result) {
   errors.forEach(error => console.error(error));

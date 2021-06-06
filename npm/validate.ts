@@ -12,7 +12,7 @@ import {
   NN,
   not,
   pipe,
-  startsWith
+  startsWith,
 } from "../deps.ts";
 import { includeFactory } from "../_shared/composite.ts";
 import { normalize } from "./_utils.ts";
@@ -20,7 +20,7 @@ import { normalize } from "./_utils.ts";
 import {
   INVALID_LENGTH_0,
   INVALID_NOT_STRING,
-  INVALID_TRIMMABLE
+  INVALID_TRIMMABLE,
 } from "../_shared/constants.ts";
 
 import {
@@ -31,9 +31,9 @@ import {
   INVALID_GREATER_THAN_214,
   INVALID_LETTER_CASE,
   INVALID_SPACIAL_CHAR,
-  INVALID_START_WITH_UNDERSCORE,
   INVALID_START_WITH_PERIOD,
-  RegularLetter
+  INVALID_START_WITH_UNDERSCORE,
+  RegularLetter,
 } from "./_constants.ts";
 import { isTrimable } from "../_shared/validate.ts";
 
@@ -46,9 +46,10 @@ const isStartWith_ = startsWith("_");
 const hasSpecialCharacter = test(RegularLetter);
 const isBlacklistName = includeFactory(BLACKLIST);
 const isCoreModuleName = includeFactory(CORE_MODULES);
-const isEqualNormalizedName = (name: string) => (
-  packageName: string
-): boolean => normalize(packageName) === name;
+const isEqualNormalizedName = (name: string) =>
+  (
+    packageName: string,
+  ): boolean => normalize(packageName) === name;
 
 const table = [
   [isLength0, INVALID_LENGTH_0],
@@ -59,10 +60,23 @@ const table = [
   [not(isLowerCase), INVALID_LETTER_CASE],
   [not(hasSpecialCharacter), INVALID_SPACIAL_CHAR],
   [isBlacklistName, INVALID_BLACKLIST],
-  [isCoreModuleName, INVALID_CORE_MODULE_NAME]
+  [isCoreModuleName, INVALID_CORE_MODULE_NAME],
 ] as const;
 
-const isValid = ifElseFn(
+/**
+ * Validator for npm package name
+ * @params val - Any value
+ * @returns Returns `true` if appropriate as a package name for npm. Otherwise; `false`
+ *
+ * @example
+ * ```ts
+ * isValidNpm('is-valid-package-name') // true
+ * isValidNpm('node_modules') // false
+ * ```
+ *
+ * @public
+ */
+const isValidNpm = ifElseFn(
   isString,
   pipe(
     cast<string>(),
@@ -75,21 +89,21 @@ const isValid = ifElseFn(
       not(isLowerCase),
       not(hasSpecialCharacter),
       isBlacklistName,
-      isCoreModuleName
-    )
+      isCoreModuleName,
+    ),
   ),
-  false
+  false,
 );
 
 const validateAll = (val: unknown): [boolean, string[]] =>
   ifElse(
     isString(val),
     () => {
-      const fails = table.filter(([validate]) => validate(val as string));
+      const fails = table.filter(([validateNpm]) => validateNpm(val as string));
       const filtered = fails.map(([_, msg]) => msg);
       return [isLength0(filtered), filtered];
     },
-    [false, [INVALID_NOT_STRING]]
+    [false, [INVALID_NOT_STRING]],
   );
 
 const validateFailFast = (val: unknown): [boolean, string] =>
@@ -100,20 +114,40 @@ const validateFailFast = (val: unknown): [boolean, string] =>
 
       return [
         isUndefined(result),
-        ifElse(isUndefined(result), "", result as string)
+        ifElse(isUndefined(result), "", result as string),
       ];
     },
-    [false, INVALID_NOT_STRING]
+    [false, INVALID_NOT_STRING],
   );
 
-const validate = <T extends boolean = false>(
+/**
+ * Validation for npm package name
+ * @params val - Any value
+ * @params checkAll? - Whether to interrupt validation in the middle
+ * @returns Tuple of boolean and error message.
+ *
+ * @example
+ * ```ts
+ * validateNpm('is-valid-package-name') // [ true, "" ]
+ * validateNpm('node_modules') // [ false, "Name is blacklisted" ]
+ * ```
+ *
+ * @example
+ * ```ts
+ * // checkAll
+ * validateNpm("Abc", true); // [ false, ["Name can no longer contain capital letters", "Name contains only the characters a-z, 0-9 and -._" ]]
+ * ```
+ *
+ * @public
+ */
+const validateNpm = <T extends boolean = false>(
   val: unknown,
-  checkAll?: T
+  checkAll?: T,
 ): T extends true ? [boolean, string[]] : [boolean, string] =>
   ifElse(
     NN(checkAll),
     () => validateAll(val),
-    () => validateFailFast(val)
+    () => validateFailFast(val),
   ) as T extends true ? [boolean, string[]] : [boolean, string];
 
 export {
@@ -123,8 +157,8 @@ export {
   isEqualNormalizedName,
   isLowerCase,
   isTrimable,
-  isValid,
-  validate,
+  isValidNpm,
   validateAll,
-  validateFailFast
+  validateFailFast,
+  validateNpm,
 };

@@ -4,10 +4,10 @@ import {
   isBlacklistName,
   isEqualNormalizedName,
   isLowerCase,
-  isValid,
-  validate,
+  isValidNpm,
   validateAll,
-  validateFailFast
+  validateFailFast,
+  validateNpm,
 } from "./validate.ts";
 import { normalize } from "./_utils.ts";
 import { assertEquals } from "../dev_deps.ts";
@@ -17,13 +17,13 @@ import {
   INVALID_GREATER_THAN_214,
   INVALID_LETTER_CASE,
   INVALID_SPACIAL_CHAR,
+  INVALID_START_WITH_PERIOD,
   INVALID_START_WITH_UNDERSCORE,
-  INVALID_START_WITH_PERIOD
 } from "./_constants.ts";
 import {
   INVALID_LENGTH_0,
   INVALID_NOT_STRING,
-  INVALID_TRIMMABLE
+  INVALID_TRIMMABLE,
 } from "../_shared/constants.ts";
 
 const emptyString = "";
@@ -35,14 +35,14 @@ Deno.test("isLowerCase", () => {
     ["hoge", true],
     ["Hello", false],
     ["heLlo", false],
-    ["hello Everyone", false]
+    ["hello Everyone", false],
   ];
 
   table.forEach(([val, expected]) => {
     assertEquals(
       isLowerCase(val),
       expected,
-      `isLowerCase(${val}) -> ${expected}`
+      `isLowerCase(${val}) -> ${expected}`,
     );
   });
 });
@@ -96,14 +96,14 @@ Deno.test("hasSpecialCharacter", () => {
     ["\\", false],
     ["\uD800\uDFFF", false],
     ["\uD800\uDFFF", false],
-    ["!|~*'()#;,/?:@&=+$[<,>}{]]^%`", false]
+    ["!|~*'()#;,/?:@&=+$[<,>}{]]^%`", false],
   ];
 
   table.forEach(([val, expected]) => {
     assertEquals(
       hasSpecialCharacter(val),
       expected,
-      `hasSpecialCharacter(${val}) -> ${expected}`
+      `hasSpecialCharacter(${val}) -> ${expected}`,
     );
   });
 });
@@ -113,14 +113,14 @@ Deno.test("isBlacklistName", () => {
     [emptyString, false],
     ["hello", false],
     ["node_modules", true],
-    ["favicon.ico", true]
+    ["favicon.ico", true],
   ];
 
   table.forEach(([val, expected]) => {
     assertEquals(
       isBlacklistName(val),
       expected,
-      `isBlacklistName(${val}) -> ${expected}`
+      `isBlacklistName(${val}) -> ${expected}`,
     );
   });
 });
@@ -134,14 +134,14 @@ Deno.test("isEqualNormalizedName", () => {
     ["name-able", "n-a-m-e-a-b-l-e", true],
     ["n.a.m-e..a-b-le", "na.m.e.a.ble", true],
     ["nameable", "nnamebale", false],
-    ["n-a--m-e-a-b-l_e", "n-a-m_e._a.b.le", true]
+    ["n-a--m-e-a-b-l_e", "n-a-m_e._a.b.le", true],
   ];
 
   table.forEach(([name, packageName, expected]) => {
     assertEquals(
       isEqualNormalizedName(normalize(name))(packageName),
       expected,
-      `isEqualNormalizedName(${name})(${packageName}) -> ${expected}`
+      `isEqualNormalizedName(${name})(${packageName}) -> ${expected}`,
     );
   });
 });
@@ -160,18 +160,18 @@ Deno.test("validateFailFast", () => {
     ["_hello", [false, INVALID_START_WITH_UNDERSCORE]],
     [".hello", [false, INVALID_START_WITH_PERIOD]],
     ["fonction", [true, ""]],
-    ["v8", [false, INVALID_CORE_MODULE_NAME]]
+    ["v8", [false, INVALID_CORE_MODULE_NAME]],
   ];
   table.forEach(([val, expected]) => {
     assertEquals(
       validateFailFast(val),
       expected,
-      `validateFailFast(${val}) -> ${expected}`
+      `validateFailFast(${val}) -> ${expected}`,
     );
   });
 });
 
-Deno.test("isValid", () => {
+Deno.test("isValidNpm", () => {
   const table: [unknown, boolean][] = [
     [undefined, false],
     ["", false],
@@ -184,10 +184,14 @@ Deno.test("isValid", () => {
     ["_hello", false],
     [".hello", false],
     ["fonction", true],
-    ["assert", false]
+    ["assert", false],
   ];
   table.forEach(([val, expected]) => {
-    assertEquals(isValid(val), expected, `isValid(${val}) -> ${expected}`);
+    assertEquals(
+      isValidNpm(val),
+      expected,
+      `isValidNpm(${val}) -> ${expected}`,
+    );
   });
 });
 
@@ -200,7 +204,7 @@ Deno.test("validateAll", () => {
     [" hello", [false, [INVALID_TRIMMABLE, INVALID_SPACIAL_CHAR]]],
     [
       " Abc",
-      [false, [INVALID_TRIMMABLE, INVALID_LETTER_CASE, INVALID_SPACIAL_CHAR]]
+      [false, [INVALID_TRIMMABLE, INVALID_LETTER_CASE, INVALID_SPACIAL_CHAR]],
     ],
     ["A", [false, [INVALID_LETTER_CASE, INVALID_SPACIAL_CHAR]]],
     ["Abc", [false, [INVALID_LETTER_CASE, INVALID_SPACIAL_CHAR]]],
@@ -208,18 +212,18 @@ Deno.test("validateAll", () => {
     ["_hello", [false, [INVALID_START_WITH_UNDERSCORE]]],
     [".hello", [false, [INVALID_START_WITH_PERIOD]]],
     ["fonction", [true, []]],
-    ["http2", [false, [INVALID_CORE_MODULE_NAME]]]
+    ["http2", [false, [INVALID_CORE_MODULE_NAME]]],
   ];
   table.forEach(([val, expected]) => {
     assertEquals(
       validateAll(val),
       expected,
-      `validateAll(${val}) -> ${expected}`
+      `validateAll(${val}) -> ${expected}`,
     );
   });
 });
 
-Deno.test("validate", () => {
+Deno.test("validateNpm", () => {
   const table: [unknown, boolean, [boolean, string | string[]]][] = [
     [undefined, false, [false, INVALID_NOT_STRING]],
     [undefined, true, [false, [INVALID_NOT_STRING]]],
@@ -242,14 +246,14 @@ Deno.test("validate", () => {
     ["node_modules", false, [false, INVALID_BLACKLIST]],
     ["node_modules", true, [false, [INVALID_BLACKLIST]]],
     ["favicon.ico", false, [false, INVALID_BLACKLIST]],
-    ["favicon.ico", true, [false, [INVALID_BLACKLIST]]]
+    ["favicon.ico", true, [false, [INVALID_BLACKLIST]]],
   ];
 
   table.forEach(([val, checkAll, expected]) => {
     assertEquals(
-      validate(val, checkAll),
+      validateNpm(val, checkAll),
       expected,
-      `validate(${val}, ${checkAll}) -> ${expected}`
+      `validateNpm(${val}, ${checkAll}) -> ${expected}`,
     );
   });
 });

@@ -11,14 +11,14 @@ import {
   ltLength,
   NN,
   not,
-  pipe
+  pipe,
 } from "../deps.ts";
 import {
   INVALID_GREATER_THAN_40,
   INVALID_LENGTH_0,
   INVALID_NOT_STRING,
   INVALID_SPECIAL_CHAR,
-  INVALID_TRIMMABLE
+  INVALID_TRIMMABLE,
 } from "../_shared/constants.ts";
 import { gt40, isRegularLetter, isTrimable } from "../_shared/validate.ts";
 import { includeFactory } from "../_shared/composite.ts";
@@ -27,7 +27,7 @@ import {
   INVALID_CORE_MODULE_NAME,
   INVALID_LESS_THAN_2,
   INVALID_RESERVED_NAME,
-  RESERVED_NAMES
+  RESERVED_NAMES,
 } from "./_constants.ts";
 import { ResultMsg, ResultMsgs } from "../_shared/types.ts";
 
@@ -42,7 +42,7 @@ const table = [
   [gt40, INVALID_GREATER_THAN_40],
   [isCoreModuleName, INVALID_CORE_MODULE_NAME],
   [isReservedName, INVALID_RESERVED_NAME],
-  [not(isRegularLetter), INVALID_SPECIAL_CHAR]
+  [not(isRegularLetter), INVALID_SPECIAL_CHAR],
 ] as const;
 
 const validateFailFast = (val: unknown): ResultMsg =>
@@ -53,34 +53,68 @@ const validateFailFast = (val: unknown): ResultMsg =>
 
       return [
         isUndefined(result),
-        ifElse(isUndefined(result), "", result as string)
+        ifElse(isUndefined(result), "", result as string),
       ];
     },
-    [false, INVALID_NOT_STRING]
+    [false, INVALID_NOT_STRING],
   );
 
 const validateAll = (val: unknown): ResultMsgs =>
   ifElse(
     isString(val),
     () => {
-      const fails = table.filter(([validate]) => validate(val as string));
+      const fails = table.filter(([validateNestLand]) =>
+        validateNestLand(val as string)
+      );
       const filtered = fails.map(([_, msg]) => msg);
       return [isLength0(filtered), filtered];
     },
-    [false, [INVALID_NOT_STRING]]
+    [false, [INVALID_NOT_STRING]],
   );
 
-const validate = <T extends boolean = false>(
+/**
+ * Validation for nest.land package name
+ * @params val - Any value
+ * @params checkAll? - Whether to interrupt validation in the middle
+ * @returns Tuple of boolean and error message.
+ *
+ * @example
+ * ```ts
+ * validateNestLand('oak') // [ true, "" ]
+ * validateNestLand('o') // [ false, "Name length must be greater than 1" ] * ```
+ *
+ * @example
+ * ```ts
+ * // checkAll
+ * validateNestLand(" Abc", true); // [ false, ["Name cannot contain leading or trailing spaces", "Name contains only the characters a-z, 0-9 and _" ]]
+ * ```
+ *
+ * @public
+ */
+const validateNestLand = <T extends boolean = false>(
   val: unknown,
-  checkAll?: T
+  checkAll?: T,
 ): T extends true ? ResultMsgs : ResultMsg =>
   ifElse(
     NN(checkAll),
     () => validateAll(val),
-    () => validateFailFast(val)
+    () => validateFailFast(val),
   ) as T extends true ? ResultMsgs : ResultMsg;
 
-const isValid = ifElseFn(
+/**
+ * Validator for nest.land package name
+ * @params val - Any value
+ * @returns Returns `true` if appropriate as a package name for nest.land. Otherwise; `false`
+ *
+ * @example
+ * ```ts
+ * isValidNestLand('oak') // true
+ * isValidNestLand('o') // false
+ * ```
+ *
+ * @public
+ */
+const isValidNestLand = ifElseFn(
   isString,
   pipe(
     cast<string>(),
@@ -91,18 +125,18 @@ const isValid = ifElseFn(
       gt40,
       isCoreModuleName,
       isReservedName,
-      not(isRegularLetter)
-    )
+      not(isRegularLetter),
+    ),
   ),
-  false
+  false,
 );
 
 export {
   isCoreModuleName,
   isRegularLetter,
-  isValid,
+  isValidNestLand,
   lt2,
-  validate,
   validateAll,
-  validateFailFast
+  validateFailFast,
+  validateNestLand,
 };
