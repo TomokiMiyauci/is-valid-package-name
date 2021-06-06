@@ -50,9 +50,9 @@ Check each for detailed validation rules.
 
 ## :zap: Overview
 
-### isValid
+### isValid*
 
-The `isValid` function returns a boolean if the package name is valid as a package.
+The `isValid*` function returns a boolean if the package name is valid as a package.
 
 ```ts
 isValidNpm('is-valid-package-name') // true
@@ -65,9 +65,9 @@ isValidNestLand('oak') // true
 isValidNestLand('o') // false
 ```
 
-### validate
+### validate*
 
-The `validate` function returns tuple of boolean and error message.
+The `validate*` function returns tuple of boolean and error message.
 
 ```ts
 validateNpm('is-valid-package-name') // [ true, "" ]

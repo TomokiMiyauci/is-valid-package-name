@@ -7,8 +7,8 @@ In Deno you can `import` as follows:
 
 ```ts
 import {
-  isValid,
-  validate
+  isValidNpm,
+  validateNpm
 } from "https://deno.land/x/is_valid_package_name/npm/mod.ts";
 ```
 
@@ -16,24 +16,24 @@ For `Node.js`, you can get the same functionality by looking at [here](../README
 
 ## Overview
 
-`isValid`:
+`isValidNpm`:
 
 ```ts
-isValid(undefined); // false
-isValid(null); // false
-isValid("~"); // false
-isValid(".hello"); // false
-isValid("package"); // true
-isValid("under_score"); // true
+isValidNpm(undefined); // false
+isValidNpm(null); // false
+isValidNpm("~"); // false
+isValidNpm(".hello"); // false
+isValidNpm("package"); // true
+isValidNpm("under_score"); // true
 ```
 
-`validate`:
+`validateNpm`:
 
 ```ts
-validate(undefined); // [false, INVALID_NOT_STRING]
-validate(undefined, true); // [false, [INVALID_NOT_STRING]]
-validate("node_modules"); // [false, INVALID_CORE_MODULE_NAME]
-validate("~"); // [false, INVALID_SPACIAL_CHAR]
+validateNpm(undefined); // [false, INVALID_NOT_STRING]
+validateNpm(undefined, true); // [false, [INVALID_NOT_STRING]]
+validateNpm("node_modules"); // [false, INVALID_CORE_MODULE_NAME]
+validateNpm("~"); // [false, INVALID_SPACIAL_CHAR]
 ```
 
 ## Naming Rules
@@ -53,35 +53,35 @@ Below is a list of rules that valid npm package name should conform to.
 
 ## API
 
-### isValid
+### isValidNpm
 
 > Returns whether the value is valid as a package name.
 
 Type Definition:
 
 ```ts
-declare const isValid: (val: unknown) => boolean;
+declare const isValidNpm: (val: unknown) => boolean;
 ```
 
 #### Example
 
 ```ts
-isValid(0); // false
-isValid({}); // false
-isValid("_package"); // false
-isValid("node_modules"); // false
-isValid("favicon.ico"); // false
-isValid("is-valid-package-name"); // true
+isValidNpm(0); // false
+isValidNpm({}); // false
+isValidNpm("_package"); // false
+isValidNpm("node_modules"); // false
+isValidNpm("favicon.ico"); // false
+isValidNpm("is-valid-package-name"); // true
 ```
 
-### validate
+### validateNpm
 
 > Returns a `boolean` and error message tuple indicating whether the value is valid as a package name.
 
 Type Definition:
 
 ```ts
-declare const validate: <T extends boolean = false>(
+declare const validateNpm: <T extends boolean = false>(
   val: unknown,
   checkAll?: T | undefined
 ) => T extends true ? [boolean, string[]] : [boolean, string];
@@ -92,9 +92,9 @@ declare const validate: <T extends boolean = false>(
 By default, it returns a result as soon as a validation error occurs.
 
 ```ts
-validate(".package"); // [false, INVALID_START_WITH_UNDERSCORE]
-validate(" Abc"); // [false, INVALID_TRIMMABLE]
-const [result, error] = validate("fonction"); // [true, '']
+validateNpm(".package"); // [false, INVALID_START_WITH_UNDERSCORE]
+validateNpm(" Abc"); // [false, INVALID_TRIMMABLE]
+const [result, error] = validateNpm("fonction"); // [true, '']
 
 if (!result) {
   console.error(error);
@@ -106,8 +106,8 @@ if (!result) {
 The `checkAll` option must be `true` to return all validation errors.
 
 ```ts
-validate(".package", true); // [false, [INVALID_START_WITH_PERIOD]]
-const [result, errors] = validate(" Abc", true); // [false, [INVALID_TRIMMABLE, INVALID_LETTER_CASE, INVALID_SPACIAL_CHAR]]
+validateNpm(".package", true); // [false, [INVALID_START_WITH_PERIOD]]
+const [result, errors] = validateNpm(" Abc", true); // [false, [INVALID_TRIMMABLE, INVALID_LETTER_CASE, INVALID_SPACIAL_CHAR]]
 
 if (!result) {
   errors.forEach(error => console.error(error));

@@ -7,8 +7,8 @@ In Deno you can `import` as follows:
 
 ```ts
 import {
-  isValid,
-  validate
+  isValidDenoLand,
+  validateDenoLand
 } from "https://deno.land/x/is_valid_package_name/deno_land/mod.ts";
 ```
 
@@ -16,24 +16,24 @@ For `Node.js`, you can get the same functionality by looking at [here](../README
 
 ## Overview
 
-`isValid`:
+`isValidDenoLand`:
 
 ```ts
-isValid(undefined); // false
-isValid(null); // false
-isValid("~"); // false
-isValid("is-valid-package-name"); // false
-isValid("Abc"); // false
-isValid("?hogehoge"); // false
+isValidDenoLand(undefined); // false
+isValidDenoLand(null); // false
+isValidDenoLand("~"); // false
+isValidDenoLand("is-valid-package-name"); // false
+isValidDenoLand("Abc"); // false
+isValidDenoLand("?hogehoge"); // false
 ```
 
-`validate`:
+`validateDenoLand`:
 
 ```ts
-validate(undefined); // [false, INVALID_NOT_STRING]
-validate(undefined, true); // [false, [INVALID_NOT_STRING]]
-validate("ab"); // [false, INVALID_LESS_THAN_3]
-validate("is_valid_package_name"); // [true, '']
+validateDenoLand(undefined); // [false, INVALID_NOT_STRING]
+validateDenoLand(undefined, true); // [false, [INVALID_NOT_STRING]]
+validateDenoLand("ab"); // [false, INVALID_LESS_THAN_3]
+validateDenoLand("is_valid_package_name"); // [true, '']
 ```
 
 ## Naming Rules
@@ -53,35 +53,35 @@ The rules from [source code](https://github.com/denoland/deno_registry2/blob/mai
 
 ## API
 
-### isValid
+### isValidDenoLand
 
 > Returns whether the value is valid as a package name.
 
 Type Definition:
 
 ```ts
-declare const isValid: (val: unknown) => boolean;
+declare const isValidDenoLand: (val: unknown) => boolean;
 ```
 
 #### Example
 
 ```ts
-isValid(0); // false
-isValid({}); // false
-isValid("favicon.ico"); // false
-isValid("is-valid-package-name"); // false
-isValid("_package"); // true
-isValid("node_modules"); // true
+isValidDenoLand(0); // false
+isValidDenoLand({}); // false
+isValidDenoLand("favicon.ico"); // false
+isValidDenoLand("is-valid-package-name"); // false
+isValidDenoLand("_package"); // true
+isValidDenoLand("node_modules"); // true
 ```
 
-### validate
+### validateDenoLand
 
 > Returns a `boolean` and error message tuple indicating whether the value is valid as a package name.
 
 Type Definition:
 
 ```ts
-declare const validate: <T extends boolean = false>(
+declare const validateDenoLand: <T extends boolean = false>(
   val: unknown,
   checkAll?: T | undefined
 ) => T extends true ? [boolean, string[]] : [boolean, string];
@@ -92,9 +92,9 @@ declare const validate: <T extends boolean = false>(
 By default, it returns a result as soon as a validation error occurs.
 
 ```ts
-validate(".package"); // [false, INVALID_SPECIAL_CHAR]
-validate(" Abc"); // [false, INVALID_TRIMMABLE]
-const [result, error] = validate("fonction"); // [true, '']
+validateDenoLand(".package"); // [false, INVALID_SPECIAL_CHAR]
+validateDenoLand(" Abc"); // [false, INVALID_TRIMMABLE]
+const [result, error] = validateDenoLand("fonction"); // [true, '']
 
 if (!result) {
   console.error(error);
@@ -106,7 +106,7 @@ if (!result) {
 The `checkAll` option must be `true` to return all validation errors.
 
 ```ts
-const [result, errors] = validate("", true); // [false, [INVALID_LENGTH_0, INVALID_LESS_THAN_3, INVALID_SPECIAL_CHAR]]
+const [result, errors] = validateDenoLand("", true); // [false, [INVALID_LENGTH_0, INVALID_LESS_THAN_3, INVALID_SPECIAL_CHAR]]
 
 if (!result) {
   errors.forEach(error => console.error(error));
