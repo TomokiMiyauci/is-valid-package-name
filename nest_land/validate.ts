@@ -1,6 +1,6 @@
 // Copyright 2021-present the is-valid-package-name authors. All rights reserved. MIT license.
 import {
-  cast,
+  castString,
   everyFalse,
   ifElse,
   ifElseFn,
@@ -39,7 +39,7 @@ const isCoreModuleName = includeFactory(CORE_MODULE_NAMES);
 const validateFailFast = ifElseFn(
   isString,
   pipe(
-    cast<string>(),
+    castString,
     trueThen(
       [isLength0, INVALID_LENGTH_0],
       [isTrimable, INVALID_TRIMMABLE],
@@ -61,7 +61,7 @@ const validateFailFast = ifElseFn(
 const validateAll = ifElseFn(
   isString,
   pipe(
-    cast<string>(),
+    castString,
     trueThenAll(
       [isLength0, INVALID_LENGTH_0],
       [isTrimable, INVALID_TRIMMABLE],
@@ -125,7 +125,7 @@ const validateNestLand = <T extends boolean = false>(
 const isValidNestLand = ifElseFn(
   isString,
   pipe(
-    cast<string>(),
+    castString,
     everyFalse(
       isLength0,
       isTrimable,

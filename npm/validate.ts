@@ -1,6 +1,6 @@
 // Copyright 2021-present the is-valid-package-name authors. All rights reserved. MIT license.
 import {
-  cast,
+  castString,
   everyFalse,
   gtLength,
   ifElse,
@@ -40,7 +40,6 @@ import {
 } from "./_constants.ts";
 import { isTrimable } from "../_shared/validate.ts";
 
-const castString = cast<string>();
 const test = (regExp: RegExp) => (val: string): boolean => regExp.test(val);
 
 const gt214 = gtLength(214);

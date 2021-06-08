@@ -1,6 +1,6 @@
 // Copyright 2021-present the is-valid-package-name authors. All rights reserved. MIT license.
 import {
-  cast,
+  castString,
   everyFalse,
   ifElse,
   ifElseFn,
@@ -43,7 +43,7 @@ const lt3 = ltLength(3);
 const isValidDenoLand = ifElseFn(
   isString,
   pipe(
-    cast<string>(),
+    castString,
     everyFalse(isLength0, isTrimable, lt3, gt40, not(isRegularLetter)),
   ),
   false,
@@ -52,7 +52,7 @@ const isValidDenoLand = ifElseFn(
 const validateFailFast = ifElseFn(
   isString,
   pipe(
-    cast<string>(),
+    castString,
     trueThen(
       [isLength0, INVALID_LENGTH_0],
       [isTrimable, INVALID_TRIMMABLE],
@@ -72,7 +72,7 @@ const validateFailFast = ifElseFn(
 const validateAll = ifElseFn(
   isString,
   pipe(
-    cast<string>(),
+    castString,
     trueThenAll(
       [isLength0, INVALID_LENGTH_0],
       [isTrimable, INVALID_TRIMMABLE],
