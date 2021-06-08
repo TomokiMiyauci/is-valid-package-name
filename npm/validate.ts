@@ -2,17 +2,19 @@
 import {
   cast,
   everyFalse,
-  failOnTrue,
   gtLength,
   ifElse,
   ifElseFn,
   isLength0,
+  isLowerCase,
   isString,
   isUndefined,
   NN,
   not,
   pipe,
   startsWith,
+  trueThen,
+  trueThenAll,
 } from "../deps.ts";
 import { includeFactory } from "../_shared/composite.ts";
 import { normalize } from "./_utils.ts";
@@ -22,6 +24,7 @@ import {
   INVALID_NOT_STRING,
   INVALID_TRIMMABLE,
 } from "../_shared/constants.ts";
+import { ResultMsg, ResultMsgs } from "../_shared/types.ts";
 
 import {
   BLACKLIST,
@@ -37,10 +40,10 @@ import {
 } from "./_constants.ts";
 import { isTrimable } from "../_shared/validate.ts";
 
+const castString = cast<string>();
 const test = (regExp: RegExp) => (val: string): boolean => regExp.test(val);
 
 const gt214 = gtLength(214);
-const isLowerCase = (val: string): boolean => val.toLowerCase() === val;
 const isStartWithDot = startsWith(".");
 const isStartWith_ = startsWith("_");
 const hasSpecialCharacter = test(RegularLetter);
@@ -50,18 +53,6 @@ const isEqualNormalizedName = (name: string) =>
   (
     packageName: string,
   ): boolean => normalize(packageName) === name;
-
-const table = [
-  [isLength0, INVALID_LENGTH_0],
-  [isTrimable, INVALID_TRIMMABLE],
-  [gt214, INVALID_GREATER_THAN_214],
-  [isStartWithDot, INVALID_START_WITH_PERIOD],
-  [isStartWith_, INVALID_START_WITH_UNDERSCORE],
-  [not(isLowerCase), INVALID_LETTER_CASE],
-  [not(hasSpecialCharacter), INVALID_SPACIAL_CHAR],
-  [isBlacklistName, INVALID_BLACKLIST],
-  [isCoreModuleName, INVALID_CORE_MODULE_NAME],
-] as const;
 
 /**
  * Validator for npm package name
@@ -79,7 +70,7 @@ const table = [
 const isValidNpm = ifElseFn(
   isString,
   pipe(
-    cast<string>(),
+    castString,
     everyFalse(
       isLength0,
       isTrimable,
@@ -95,30 +86,53 @@ const isValidNpm = ifElseFn(
   false,
 );
 
-const validateAll = (val: unknown): [boolean, string[]] =>
-  ifElse(
-    isString(val),
-    () => {
-      const fails = table.filter(([validateNpm]) => validateNpm(val as string));
-      const filtered = fails.map(([_, msg]) => msg);
-      return [isLength0(filtered), filtered];
-    },
-    [false, [INVALID_NOT_STRING]],
-  );
+const validateAll = ifElseFn(
+  isString,
+  pipe(
+    castString,
+    trueThenAll(
+      [isLength0, INVALID_LENGTH_0],
+      [isTrimable, INVALID_TRIMMABLE],
+      [gt214, INVALID_GREATER_THAN_214],
+      [isStartWithDot, INVALID_START_WITH_PERIOD],
+      [isStartWith_, INVALID_START_WITH_UNDERSCORE],
+      [not(isLowerCase), INVALID_LETTER_CASE],
+      [not(hasSpecialCharacter), INVALID_SPACIAL_CHAR],
+      [isBlacklistName, INVALID_BLACKLIST],
+      [isCoreModuleName, INVALID_CORE_MODULE_NAME],
+    ),
+    ifElseFn(
+      isLength0,
+      [true, []] as ResultMsgs,
+      (msgs) => [false, msgs] as ResultMsgs,
+    ),
+  ),
+  [false, [INVALID_NOT_STRING]] as ResultMsgs,
+);
 
-const validateFailFast = (val: unknown): [boolean, string] =>
-  ifElse(
-    isString(val),
-    () => {
-      const result = failOnTrue(table as any)(val);
-
-      return [
-        isUndefined(result),
-        ifElse(isUndefined(result), "", result as string),
-      ];
-    },
-    [false, INVALID_NOT_STRING],
-  );
+const validateFailFast = ifElseFn(
+  isString,
+  pipe(
+    castString,
+    trueThen(
+      [isLength0, INVALID_LENGTH_0],
+      [isTrimable, INVALID_TRIMMABLE],
+      [gt214, INVALID_GREATER_THAN_214],
+      [isStartWithDot, INVALID_START_WITH_PERIOD],
+      [isStartWith_, INVALID_START_WITH_UNDERSCORE],
+      [not(isLowerCase), INVALID_LETTER_CASE],
+      [not(hasSpecialCharacter), INVALID_SPACIAL_CHAR],
+      [isBlacklistName, INVALID_BLACKLIST],
+      [isCoreModuleName, INVALID_CORE_MODULE_NAME],
+    ),
+    ifElseFn(
+      isUndefined,
+      [true, ""] as ResultMsg,
+      (msg) => [false, msg] as ResultMsg,
+    ),
+  ),
+  [false, INVALID_NOT_STRING] as ResultMsg,
+);
 
 /**
  * Validation for npm package name
@@ -143,12 +157,12 @@ const validateFailFast = (val: unknown): [boolean, string] =>
 const validateNpm = <T extends boolean = false>(
   val: unknown,
   checkAll?: T,
-): T extends true ? [boolean, string[]] : [boolean, string] =>
+): T extends true ? ResultMsgs : ResultMsg =>
   ifElse(
     NN(checkAll),
     () => validateAll(val),
     () => validateFailFast(val),
-  ) as T extends true ? [boolean, string[]] : [boolean, string];
+  ) as T extends true ? ResultMsgs : ResultMsg;
 
 export {
   gt214,

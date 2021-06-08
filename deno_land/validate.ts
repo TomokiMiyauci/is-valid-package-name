@@ -1,9 +1,7 @@
 // Copyright 2021-present the is-valid-package-name authors. All rights reserved. MIT license.
 import {
-  AnyFn,
   cast,
   everyFalse,
-  failOnTrue,
   ifElse,
   ifElseFn,
   isLength0,
@@ -13,6 +11,8 @@ import {
   NN,
   not,
   pipe,
+  trueThen,
+  trueThenAll,
 } from "../deps.ts";
 import { gt40, isRegularLetter, isTrimable } from "../_shared/validate.ts";
 import {
@@ -26,14 +26,6 @@ import {
 import { ResultMsg, ResultMsgs } from "../_shared/types.ts";
 
 const lt3 = ltLength(3);
-
-const table = [
-  [isLength0, INVALID_LENGTH_0],
-  [isTrimable, INVALID_TRIMMABLE],
-  [lt3, INVALID_LESS_THAN_3],
-  [gt40, INVALID_GREATER_THAN_40],
-  [not(isRegularLetter), INVALID_SPECIAL_CHAR],
-] as const;
 
 /**
  * Validator for deno.land package name
@@ -60,25 +52,40 @@ const isValidDenoLand = ifElseFn(
 const validateFailFast = ifElseFn(
   isString,
   pipe(
-    failOnTrue<AnyFn<unknown, boolean>, unknown>(table as any),
-    (val: unknown) =>
-      [
-        isUndefined(val),
-        ifElse(isUndefined(val), "", val as string),
-      ] as ResultMsg,
+    cast<string>(),
+    trueThen(
+      [isLength0, INVALID_LENGTH_0],
+      [isTrimable, INVALID_TRIMMABLE],
+      [lt3, INVALID_LESS_THAN_3],
+      [gt40, INVALID_GREATER_THAN_40],
+      [not(isRegularLetter), INVALID_SPECIAL_CHAR],
+    ),
+    ifElseFn(
+      isUndefined,
+      [true, ""] as ResultMsg,
+      (msg) => [false, msg] as ResultMsg,
+    ),
   ),
   [false, INVALID_NOT_STRING] as ResultMsg,
 );
 
 const validateAll = ifElseFn(
   isString,
-  (val: unknown) => {
-    const fails = table.filter(([validateDenoLand]) =>
-      validateDenoLand(val as string)
-    );
-    const filtered = fails.map(([_, msg]) => msg);
-    return [isLength0(filtered), filtered] as ResultMsgs;
-  },
+  pipe(
+    cast<string>(),
+    trueThenAll(
+      [isLength0, INVALID_LENGTH_0],
+      [isTrimable, INVALID_TRIMMABLE],
+      [lt3, INVALID_LESS_THAN_3],
+      [gt40, INVALID_GREATER_THAN_40],
+      [not(isRegularLetter), INVALID_SPECIAL_CHAR],
+    ),
+    ifElseFn(
+      isLength0,
+      [true, []] as ResultMsgs,
+      (msgs) => [false, msgs] as ResultMsgs,
+    ),
+  ),
   [false, [INVALID_NOT_STRING]] as ResultMsgs,
 );
 

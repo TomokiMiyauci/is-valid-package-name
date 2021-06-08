@@ -2,7 +2,6 @@
 import {
   cast,
   everyFalse,
-  failOnTrue,
   ifElse,
   ifElseFn,
   isLength0,
@@ -12,6 +11,8 @@ import {
   NN,
   not,
   pipe,
+  trueThen,
+  trueThenAll,
 } from "../deps.ts";
 import {
   INVALID_GREATER_THAN_40,
@@ -35,42 +36,49 @@ const lt2 = ltLength(2);
 const isReservedName = includeFactory(RESERVED_NAMES);
 const isCoreModuleName = includeFactory(CORE_MODULE_NAMES);
 
-const table = [
-  [isLength0, INVALID_LENGTH_0],
-  [isTrimable, INVALID_TRIMMABLE],
-  [lt2, INVALID_LESS_THAN_2],
-  [gt40, INVALID_GREATER_THAN_40],
-  [isCoreModuleName, INVALID_CORE_MODULE_NAME],
-  [isReservedName, INVALID_RESERVED_NAME],
-  [not(isRegularLetter), INVALID_SPECIAL_CHAR],
-] as const;
+const validateFailFast = ifElseFn(
+  isString,
+  pipe(
+    cast<string>(),
+    trueThen(
+      [isLength0, INVALID_LENGTH_0],
+      [isTrimable, INVALID_TRIMMABLE],
+      [lt2, INVALID_LESS_THAN_2],
+      [gt40, INVALID_GREATER_THAN_40],
+      [isCoreModuleName, INVALID_CORE_MODULE_NAME],
+      [isReservedName, INVALID_RESERVED_NAME],
+      [not(isRegularLetter), INVALID_SPECIAL_CHAR],
+    ),
+    ifElseFn(
+      isUndefined,
+      [true, ""] as ResultMsg,
+      (val) => [false, val] as ResultMsg,
+    ),
+  ),
+  [false, INVALID_NOT_STRING] as ResultMsg,
+);
 
-const validateFailFast = (val: unknown): ResultMsg =>
-  ifElse(
-    isString(val),
-    () => {
-      const result = failOnTrue(table as any)(val);
-
-      return [
-        isUndefined(result),
-        ifElse(isUndefined(result), "", result as string),
-      ];
-    },
-    [false, INVALID_NOT_STRING],
-  );
-
-const validateAll = (val: unknown): ResultMsgs =>
-  ifElse(
-    isString(val),
-    () => {
-      const fails = table.filter(([validateNestLand]) =>
-        validateNestLand(val as string)
-      );
-      const filtered = fails.map(([_, msg]) => msg);
-      return [isLength0(filtered), filtered];
-    },
-    [false, [INVALID_NOT_STRING]],
-  );
+const validateAll = ifElseFn(
+  isString,
+  pipe(
+    cast<string>(),
+    trueThenAll(
+      [isLength0, INVALID_LENGTH_0],
+      [isTrimable, INVALID_TRIMMABLE],
+      [lt2, INVALID_LESS_THAN_2],
+      [gt40, INVALID_GREATER_THAN_40],
+      [isCoreModuleName, INVALID_CORE_MODULE_NAME],
+      [isReservedName, INVALID_RESERVED_NAME],
+      [not(isRegularLetter), INVALID_SPECIAL_CHAR],
+    ),
+    ifElseFn(
+      isLength0,
+      [true, []] as ResultMsgs,
+      (msgs) => [false, msgs] as ResultMsgs,
+    ),
+  ),
+  [false, [INVALID_NOT_STRING]] as ResultMsgs,
+);
 
 /**
  * Validation for nest.land package name

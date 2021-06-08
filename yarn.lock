@@ -1025,10 +1025,10 @@
   resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-3.3.6.tgz#8f7173599c3f991b7ca6553a15ac8eede88fd82f"
   integrity sha512-sQsnI3Eup8ZvBH5anVdq3m7xexc1l/uciO0Cm0YrKhB5bNOu1x7XyhHvmI8V6rC8KsgqqBHvxf/ZUArBkGcIYg==
 
-"@miyauci/is-valid@1.0.0-beta.9":
-  version "1.0.0-beta.9"
-  resolved "https://registry.yarnpkg.com/@miyauci/is-valid/-/is-valid-1.0.0-beta.9.tgz#81974d56eed8944a61246f2fee7539ed6055d160"
-  integrity sha512-J0sNliONAnldZnk1TpX0R6zEv7u5IumItAktaty/XQ3i+fsUcWw7bNAKgtiS54HVB833erRnQ7GmQNfq8Rkd4Q==
+"@miyauci/is-valid@1.0.0-beta.12":
+  version "1.0.0-beta.12"
+  resolved "https://registry.yarnpkg.com/@miyauci/is-valid/-/is-valid-1.0.0-beta.12.tgz#2bf54cca3454f9d1e463131ddcec9a8221cfb148"
+  integrity sha512-waKxSKm4VcHD2+ZkrnBDqIGYLOy0mp9/97xOXKhh+Ewwn7bN66BFzSaNOxshTMgmUpsiPaCeSg9tpM+PWnbyfQ==
   dependencies:
     fonction "^1.8.0-beta.6"
 
@@ -2703,15 +2703,15 @@ findup-sync@^4.0.0:
     micromatch "^4.0.2"
     resolve-dir "^1.0.1"
 
+fonction@1.9.0-beta.2:
+  version "1.9.0-beta.2"
+  resolved "https://registry.yarnpkg.com/fonction/-/fonction-1.9.0-beta.2.tgz#0c53cedcf0348fb52636c0943ecdfc41c9cb9734"
+  integrity sha512-zQ7d8GUcufpNg53THPayeLijOCOcAc++kLQfsiONHXCvYq2fPEw3jSZAfHST7NRgVH23LWkeir8zx1iH911MkA==
+
 fonction@^1.8.0-beta.6:
   version "1.8.0-beta.7"
   resolved "https://registry.yarnpkg.com/fonction/-/fonction-1.8.0-beta.7.tgz#fe491a575bddad37878c20697de0d08b9e4bacfd"
   integrity sha512-xrMmnpn0S0kYcXa7UJ4y3MfUt54W3qN4FxNDfpVna+/DIqXj3S9HuAEIWSkSL2ir8lMTAzaxBHpKQC7Dcdm25Q==
-
-fonction@^1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/fonction/-/fonction-1.8.1.tgz#914b3daa29dcc8d41acfd278d20cddbb33fe8134"
-  integrity sha512-CfiQWjwsvbnKetiOg0XPrxTK4rI+xq/+RuNv32cwnt37v66O4WL+vAUe7hrSRXMqavA2KLKSQBE+I7CBXd3yrQ==
 
 forever-agent@~0.6.1:
   version "0.6.1"
@@ -5039,9 +5039,9 @@ rollup-plugin-ts@^1.3.12:
     tslib "^2.2.0"
 
 rollup@^2.50.2:
-  version "2.50.6"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.50.6.tgz#24e2211caf9031081656e98a5e5e94d3b5e786e2"
-  integrity sha512-6c5CJPLVgo0iNaZWWliNu1Kl43tjP9LZcp6D/tkf2eLH2a9/WeHxg9vfTFl8QV/2SOyaJX37CEm9XuGM0rviUg==
+  version "2.51.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.51.0.tgz#ffd847882283998fc8611cd57af917f173b4ab5c"
+  integrity sha512-ITLt9sScNCBVspSHauw/W49lEZ0vjN8LyCzSNsNaqT67vTss2lYEfOyxltX8hjrhr1l/rQwmZ2wazzEqhZ/fUg==
   optionalDependencies:
     fsevents "~2.3.1"
 

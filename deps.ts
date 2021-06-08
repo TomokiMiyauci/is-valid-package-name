@@ -20,22 +20,25 @@ export {
   pipe,
   props,
   startsWith,
+  test,
   trim,
   tryCatch,
   uniq,
-} from "https://deno.land/x/fonction@v1.8.1/mod.ts";
+} from "https://deno.land/x/fonction@v1.9.0-beta.2/mod.ts";
 export {
   cast,
   everyFalse,
-  failOnTrue,
   gtLength,
   isArray,
   isBoolean,
   isFunction,
   isLength0,
+  isLowerCase,
   isString,
   isUndefined,
   ltLength,
-} from "https://deno.land/x/is_valid@v1.0.0-beta.9/mod.ts";
+  trueThen,
+  trueThenAll,
+} from "https://deno.land/x/is_valid@v1.0.0-beta.13/mod.ts";
 
-export type { AnyFn } from "https://deno.land/x/fonction@v1.8.1/mod.ts";
+export type { AnyFn } from "https://deno.land/x/fonction@v1.9.0-beta.2/mod.ts";
