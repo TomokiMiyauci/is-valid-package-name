@@ -1,24 +1,6 @@
 // Copyright 2021-present the is-valid-package-name authors. All rights reserved. MIT license.
-import { isRegularLetter, isTrimable } from "./validate.ts";
+import { isRegularLetter } from "./validate.ts";
 import { assertEquals } from "../dev_deps.ts";
-
-Deno.test("isTrimable", () => {
-  const table: [string, boolean][] = [
-    ["", false],
-    ["hello", false],
-    [" hello", true],
-    ["hello ", true],
-    [" hello ", true],
-  ];
-
-  table.forEach(([val, expected]) => {
-    assertEquals(
-      isTrimable(val),
-      expected,
-      `isTrimable(${val}) -> ${expected}`,
-    );
-  });
-});
 
 Deno.test("isRegularLetter", () => {
   const table: [string, boolean][] = [

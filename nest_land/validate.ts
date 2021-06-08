@@ -4,8 +4,10 @@ import {
   everyFalse,
   ifElse,
   ifElseFn,
+  includes,
   isLength0,
   isString,
+  isTrimmable,
   isUndefined,
   ltLength,
   NN,
@@ -21,8 +23,7 @@ import {
   INVALID_SPECIAL_CHAR,
   INVALID_TRIMMABLE,
 } from "../_shared/constants.ts";
-import { gt40, isRegularLetter, isTrimable } from "../_shared/validate.ts";
-import { includeFactory } from "../_shared/composite.ts";
+import { gt40, isRegularLetter } from "../_shared/validate.ts";
 import {
   CORE_MODULE_NAMES,
   INVALID_CORE_MODULE_NAME,
@@ -33,8 +34,8 @@ import {
 import { ResultMsg, ResultMsgs } from "../_shared/types.ts";
 
 const lt2 = ltLength(2);
-const isReservedName = includeFactory(RESERVED_NAMES);
-const isCoreModuleName = includeFactory(CORE_MODULE_NAMES);
+const isReservedName = includes(RESERVED_NAMES);
+const isCoreModuleName = includes(CORE_MODULE_NAMES);
 
 const validateFailFast = ifElseFn(
   isString,
@@ -42,7 +43,7 @@ const validateFailFast = ifElseFn(
     castString,
     trueThen(
       [isLength0, INVALID_LENGTH_0],
-      [isTrimable, INVALID_TRIMMABLE],
+      [isTrimmable, INVALID_TRIMMABLE],
       [lt2, INVALID_LESS_THAN_2],
       [gt40, INVALID_GREATER_THAN_40],
       [isCoreModuleName, INVALID_CORE_MODULE_NAME],
@@ -64,7 +65,7 @@ const validateAll = ifElseFn(
     castString,
     trueThenAll(
       [isLength0, INVALID_LENGTH_0],
-      [isTrimable, INVALID_TRIMMABLE],
+      [isTrimmable, INVALID_TRIMMABLE],
       [lt2, INVALID_LESS_THAN_2],
       [gt40, INVALID_GREATER_THAN_40],
       [isCoreModuleName, INVALID_CORE_MODULE_NAME],
@@ -128,7 +129,7 @@ const isValidNestLand = ifElseFn(
     castString,
     everyFalse(
       isLength0,
-      isTrimable,
+      isTrimmable,
       lt2,
       gt40,
       isCoreModuleName,
@@ -143,7 +144,6 @@ export {
   isCoreModuleName,
   isRegularLetter,
   isValidNestLand,
-  lt2,
   validateAll,
   validateFailFast,
   validateNestLand,

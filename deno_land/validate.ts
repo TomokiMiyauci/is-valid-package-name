@@ -6,6 +6,7 @@ import {
   ifElseFn,
   isLength0,
   isString,
+  isTrimmable,
   isUndefined,
   ltLength,
   NN,
@@ -14,7 +15,7 @@ import {
   trueThen,
   trueThenAll,
 } from "../deps.ts";
-import { gt40, isRegularLetter, isTrimable } from "../_shared/validate.ts";
+import { gt40, isRegularLetter } from "../_shared/validate.ts";
 import {
   INVALID_GREATER_THAN_40,
   INVALID_LENGTH_0,
@@ -44,7 +45,7 @@ const isValidDenoLand = ifElseFn(
   isString,
   pipe(
     castString,
-    everyFalse(isLength0, isTrimable, lt3, gt40, not(isRegularLetter)),
+    everyFalse(isLength0, isTrimmable, lt3, gt40, not(isRegularLetter)),
   ),
   false,
 );
@@ -55,7 +56,7 @@ const validateFailFast = ifElseFn(
     castString,
     trueThen(
       [isLength0, INVALID_LENGTH_0],
-      [isTrimable, INVALID_TRIMMABLE],
+      [isTrimmable, INVALID_TRIMMABLE],
       [lt3, INVALID_LESS_THAN_3],
       [gt40, INVALID_GREATER_THAN_40],
       [not(isRegularLetter), INVALID_SPECIAL_CHAR],
@@ -75,7 +76,7 @@ const validateAll = ifElseFn(
     castString,
     trueThenAll(
       [isLength0, INVALID_LENGTH_0],
-      [isTrimable, INVALID_TRIMMABLE],
+      [isTrimmable, INVALID_TRIMMABLE],
       [lt3, INVALID_LESS_THAN_3],
       [gt40, INVALID_GREATER_THAN_40],
       [not(isRegularLetter), INVALID_SPECIAL_CHAR],
@@ -122,7 +123,6 @@ const validateDenoLand = <T extends boolean = false>(
 export {
   isRegularLetter,
   isValidDenoLand,
-  lt3,
   validateAll,
   validateDenoLand,
   validateFailFast,

@@ -1,9 +1,7 @@
 // Copyright 2021-present the is-valid-package-name authors. All rights reserved. MIT license.
 import {
   hasSpecialCharacter,
-  isBlacklistName,
   isEqualNormalizedName,
-  isLowerCase,
   isValidNpm,
   validateAll,
   validateFailFast,
@@ -27,25 +25,6 @@ import {
 } from "../_shared/constants.ts";
 
 const emptyString = "";
-
-Deno.test("isLowerCase", () => {
-  const table: [string, boolean][] = [
-    [emptyString, true],
-    ["a", true],
-    ["hoge", true],
-    ["Hello", false],
-    ["heLlo", false],
-    ["hello Everyone", false],
-  ];
-
-  table.forEach(([val, expected]) => {
-    assertEquals(
-      isLowerCase(val),
-      expected,
-      `isLowerCase(${val}) -> ${expected}`,
-    );
-  });
-});
 
 Deno.test("hasSpecialCharacter", () => {
   const table: [string, boolean][] = [
@@ -104,23 +83,6 @@ Deno.test("hasSpecialCharacter", () => {
       hasSpecialCharacter(val),
       expected,
       `hasSpecialCharacter(${val}) -> ${expected}`,
-    );
-  });
-});
-
-Deno.test("isBlacklistName", () => {
-  const table: [string, boolean][] = [
-    [emptyString, false],
-    ["hello", false],
-    ["node_modules", true],
-    ["favicon.ico", true],
-  ];
-
-  table.forEach(([val, expected]) => {
-    assertEquals(
-      isBlacklistName(val),
-      expected,
-      `isBlacklistName(${val}) -> ${expected}`,
     );
   });
 });

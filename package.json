@@ -63,8 +63,8 @@
     "url": "https://www.patreon.com/tomoki_miyauci"
   },
   "dependencies": {
-    "@miyauci/is-valid": "1.0.0-beta.14",
-    "fonction": "1.9.0-beta.2"
+    "@miyauci/is-valid": "1.0.0-beta.15",
+    "fonction": "1.9.0-beta.5"
   },
   "files": [
     "dist"

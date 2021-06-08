@@ -9,6 +9,7 @@ export {
   has,
   ifElse,
   ifElseFn,
+  includes,
   keys,
   length,
   lt,
@@ -21,10 +22,9 @@ export {
   props,
   startsWith,
   test,
-  trim,
   tryCatch,
   uniq,
-} from "https://deno.land/x/fonction@v1.9.0-beta.2/mod.ts";
+} from "https://deno.land/x/fonction@v1.9.0-beta.5/mod.ts";
 export {
   castString,
   everyFalse,
@@ -35,10 +35,11 @@ export {
   isLength0,
   isLowerCase,
   isString,
+  isTrimmable,
   isUndefined,
   ltLength,
   trueThen,
   trueThenAll,
-} from "https://deno.land/x/is_valid@v1.0.0-beta.14/mod.ts";
+} from "https://deno.land/x/is_valid@v1.0.0-beta.15/mod.ts";
 
-export type { AnyFn } from "https://deno.land/x/fonction@v1.9.0-beta.2/mod.ts";
+export type { AnyFn } from "https://deno.land/x/fonction@v1.9.0-beta.5/mod.ts";

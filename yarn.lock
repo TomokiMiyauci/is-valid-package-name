@@ -1025,10 +1025,10 @@
   resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-3.3.6.tgz#8f7173599c3f991b7ca6553a15ac8eede88fd82f"
   integrity sha512-sQsnI3Eup8ZvBH5anVdq3m7xexc1l/uciO0Cm0YrKhB5bNOu1x7XyhHvmI8V6rC8KsgqqBHvxf/ZUArBkGcIYg==
 
-"@miyauci/is-valid@1.0.0-beta.14":
-  version "1.0.0-beta.14"
-  resolved "https://registry.yarnpkg.com/@miyauci/is-valid/-/is-valid-1.0.0-beta.14.tgz#f8f6426d766c0cf7201153ba833476c2e182b8b9"
-  integrity sha512-vMrzYymDiDfDFQXs22/Wflk6mf2Jr98SYGBx9jEnMfSykkGO/qvLayku3gNMSWuYbaH0Elt7fjgySqjs/0RrDg==
+"@miyauci/is-valid@1.0.0-beta.15":
+  version "1.0.0-beta.15"
+  resolved "https://registry.yarnpkg.com/@miyauci/is-valid/-/is-valid-1.0.0-beta.15.tgz#7af55c0f0ab5fa41ff784d0eac788782ba143ccd"
+  integrity sha512-ZF8du4N3uD02Q5CoHOz53d6FW2U/sl8GUvIUUP0GU94RFCR3ZvQ2VWajB8+gGsa1TGXQBCbLdhO835ajpHeDFA==
   dependencies:
     fonction "^1.8.0-beta.6"
 
@@ -2703,10 +2703,10 @@ findup-sync@^4.0.0:
     micromatch "^4.0.2"
     resolve-dir "^1.0.1"
 
-fonction@1.9.0-beta.2:
-  version "1.9.0-beta.2"
-  resolved "https://registry.yarnpkg.com/fonction/-/fonction-1.9.0-beta.2.tgz#0c53cedcf0348fb52636c0943ecdfc41c9cb9734"
-  integrity sha512-zQ7d8GUcufpNg53THPayeLijOCOcAc++kLQfsiONHXCvYq2fPEw3jSZAfHST7NRgVH23LWkeir8zx1iH911MkA==
+fonction@1.9.0-beta.5:
+  version "1.9.0-beta.5"
+  resolved "https://registry.yarnpkg.com/fonction/-/fonction-1.9.0-beta.5.tgz#7653e043a008c0c471b73e30a20096729483c48a"
+  integrity sha512-CqJOEYgnbp4R3t5MuGGO0YuCtqMJ+6k/I9tex4VinfMD8GvG+BGA0Cp6XzeFSu74V2rFpazKxZ2HQmThtOdLGA==
 
 fonction@^1.8.0-beta.6:
   version "1.8.0-beta.7"

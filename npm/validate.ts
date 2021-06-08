@@ -5,18 +5,20 @@ import {
   gtLength,
   ifElse,
   ifElseFn,
+  includes,
   isLength0,
   isLowerCase,
   isString,
+  isTrimmable,
   isUndefined,
   NN,
   not,
   pipe,
   startsWith,
+  test,
   trueThen,
   trueThenAll,
 } from "../deps.ts";
-import { includeFactory } from "../_shared/composite.ts";
 import { normalize } from "./_utils.ts";
 
 import {
@@ -38,16 +40,14 @@ import {
   INVALID_START_WITH_UNDERSCORE,
   RegularLetter,
 } from "./_constants.ts";
-import { isTrimable } from "../_shared/validate.ts";
-
-const test = (regExp: RegExp) => (val: string): boolean => regExp.test(val);
 
 const gt214 = gtLength(214);
 const isStartWithDot = startsWith(".");
 const isStartWith_ = startsWith("_");
 const hasSpecialCharacter = test(RegularLetter);
-const isBlacklistName = includeFactory(BLACKLIST);
-const isCoreModuleName = includeFactory(CORE_MODULES);
+const isBlacklistName = includes(BLACKLIST);
+const isCoreModuleName = includes(CORE_MODULES);
+
 const isEqualNormalizedName = (name: string) =>
   (
     packageName: string,
@@ -72,7 +72,7 @@ const isValidNpm = ifElseFn(
     castString,
     everyFalse(
       isLength0,
-      isTrimable,
+      isTrimmable,
       gt214,
       isStartWithDot,
       isStartWith_,
@@ -91,7 +91,7 @@ const validateAll = ifElseFn(
     castString,
     trueThenAll(
       [isLength0, INVALID_LENGTH_0],
-      [isTrimable, INVALID_TRIMMABLE],
+      [isTrimmable, INVALID_TRIMMABLE],
       [gt214, INVALID_GREATER_THAN_214],
       [isStartWithDot, INVALID_START_WITH_PERIOD],
       [isStartWith_, INVALID_START_WITH_UNDERSCORE],
@@ -115,7 +115,7 @@ const validateFailFast = ifElseFn(
     castString,
     trueThen(
       [isLength0, INVALID_LENGTH_0],
-      [isTrimable, INVALID_TRIMMABLE],
+      [isTrimmable, INVALID_TRIMMABLE],
       [gt214, INVALID_GREATER_THAN_214],
       [isStartWithDot, INVALID_START_WITH_PERIOD],
       [isStartWith_, INVALID_START_WITH_UNDERSCORE],
@@ -164,12 +164,8 @@ const validateNpm = <T extends boolean = false>(
   ) as T extends true ? ResultMsgs : ResultMsg;
 
 export {
-  gt214,
   hasSpecialCharacter,
-  isBlacklistName,
   isEqualNormalizedName,
-  isLowerCase,
-  isTrimable,
   isValidNpm,
   validateAll,
   validateFailFast,
