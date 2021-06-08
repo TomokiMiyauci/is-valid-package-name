@@ -1025,10 +1025,10 @@
   resolved "https://registry.yarnpkg.com/@mdn/browser-compat-data/-/browser-compat-data-3.3.6.tgz#8f7173599c3f991b7ca6553a15ac8eede88fd82f"
   integrity sha512-sQsnI3Eup8ZvBH5anVdq3m7xexc1l/uciO0Cm0YrKhB5bNOu1x7XyhHvmI8V6rC8KsgqqBHvxf/ZUArBkGcIYg==
 
-"@miyauci/is-valid@1.0.0-beta.12":
-  version "1.0.0-beta.12"
-  resolved "https://registry.yarnpkg.com/@miyauci/is-valid/-/is-valid-1.0.0-beta.12.tgz#2bf54cca3454f9d1e463131ddcec9a8221cfb148"
-  integrity sha512-waKxSKm4VcHD2+ZkrnBDqIGYLOy0mp9/97xOXKhh+Ewwn7bN66BFzSaNOxshTMgmUpsiPaCeSg9tpM+PWnbyfQ==
+"@miyauci/is-valid@1.0.0-beta.13":
+  version "1.0.0-beta.13"
+  resolved "https://registry.yarnpkg.com/@miyauci/is-valid/-/is-valid-1.0.0-beta.13.tgz#517cb88d820431564143ffc0a0ca2c1b843db8dc"
+  integrity sha512-D7hXGvX4292lhk6vRBWj70328YpZH0Jpe/JdKYLLrDV34j41Vy7LpSruF8CK+BcAFjzo1zhmDEvdLFm12GjPkw==
   dependencies:
     fonction "^1.8.0-beta.6"
 
