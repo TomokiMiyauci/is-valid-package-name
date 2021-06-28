@@ -2235,6 +2235,11 @@ crypto-random-string@^2.0.0:
   resolved "https://registry.yarnpkg.com/crypto-random-string/-/crypto-random-string-2.0.0.tgz#ef2a7a966ec11083388369baa02ebead229b30d5"
   integrity sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==
 
+curry-rice@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/curry-rice/-/curry-rice-1.0.0.tgz#ff5daf251141a54931988458ced7c39931fa5b96"
+  integrity sha512-rpXOEtPurOBZGieMQf/wG7YW+zi2N7EWrkaVBFLZYCUyG2LiLLuNup9yIdasuiCmo+O/LTwPDiijotmSlRLYXA==
+
 cz-conventional-changelog@3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/cz-conventional-changelog/-/cz-conventional-changelog-3.2.0.tgz#6aef1f892d64113343d7e455529089ac9f20e477"
@@ -2703,15 +2708,12 @@ findup-sync@^4.0.0:
     micromatch "^4.0.2"
     resolve-dir "^1.0.1"
 
-fonction@^1.8.0-beta.6:
-  version "1.8.0-beta.7"
-  resolved "https://registry.yarnpkg.com/fonction/-/fonction-1.8.0-beta.7.tgz#fe491a575bddad37878c20697de0d08b9e4bacfd"
-  integrity sha512-xrMmnpn0S0kYcXa7UJ4y3MfUt54W3qN4FxNDfpVna+/DIqXj3S9HuAEIWSkSL2ir8lMTAzaxBHpKQC7Dcdm25Q==
-
-fonction@^1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/fonction/-/fonction-1.8.1.tgz#914b3daa29dcc8d41acfd278d20cddbb33fe8134"
-  integrity sha512-CfiQWjwsvbnKetiOg0XPrxTK4rI+xq/+RuNv32cwnt37v66O4WL+vAUe7hrSRXMqavA2KLKSQBE+I7CBXd3yrQ==
+fonction@^1.8.0-beta.6, fonction@^1.8.1:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/fonction/-/fonction-1.9.0.tgz#3866621a5d6381c44e559db4a04d043253eecb96"
+  integrity sha512-kFt8/QbJdrVukhppuOwuSmNsAxfkl2LH9OygARP7pUfb7aJzJUoF7triyww6YjY40F/m9x+qoJX9zhEk2c6gjA==
+  dependencies:
+    curry-rice "^1.0.0"
 
 forever-agent@~0.6.1:
   version "0.6.1"
