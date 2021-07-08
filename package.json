@@ -64,7 +64,7 @@
   },
   "dependencies": {
     "@miyauci/is-valid": "1.0.0-beta.9",
-    "fonction": "^1.8.1"
+    "fonction": "^2.1.0"
   },
   "files": [
     "dist"
